@@ -1,9 +1,8 @@
 import CartButton from "@/components/CartButton";
-import { images, offers } from "@/constants";
+import { offers } from "@/constants";
 import useAuthStore from "@/store/auth.store";
 import React from "react";
 import {
-  FlatList,
   Image,
   Pressable,
   ScrollView,
@@ -15,7 +14,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../global.css";
 
-// ─── Placeholder data (swap with real data later) ────────────────────────────
+// ─── Placeholder data ─────────────────────────────────────────────────────────
 
 const NEW_ARRIVALS = [
   {
@@ -23,42 +22,30 @@ const NEW_ARRIVALS = [
     title: "The Midnight Library",
     author: "Matt Haig",
     price: "$12.99",
-    color: "#1e3a4a",
+    color: "#9580ff",
   },
   {
     id: 2,
     title: "Atomic Habits",
     author: "James Clear",
     price: "$14.99",
-    color: "#3a1e4a",
+    color: "#6ca8f5",
   },
   {
     id: 3,
-    title: "The Name of the Wind",
+    title: "Name of the Wind",
     author: "Patrick Rothfuss",
     price: "$11.99",
-    color: "#4a1e1e",
+    color: "#f59b8a",
   },
   {
     id: 4,
     title: "Dune",
     author: "Frank Herbert",
     price: "$13.99",
-    color: "#2e3a1e",
+    color: "#62c8b0",
   },
 ];
-
-const CATEGORIES = [
-  "All",
-  "Fiction",
-  "Non-Fiction",
-  "Sci-Fi",
-  "Romance",
-  "Mystery",
-  "Fantasy",
-];
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -72,29 +59,25 @@ function getGreeting() {
 function HeroBanner() {
   return (
     <View style={s.hero}>
-      {/* Left copy */}
       <View style={{ flex: 1 }}>
         <View style={s.heroBadge}>
-          <Text style={s.heroBadgeText}>✦ NEW ARRIVALS</Text>
+          <Text style={s.heroBadgeText}>✦ THIS WEEK'S PICKS</Text>
         </View>
-        <Text style={s.heroHeadline}>
-          {"Discover\nYour Next\nFavourite Read"}
-        </Text>
-        <TouchableOpacity style={s.heroCta}>
+        <Text style={s.heroHeadline}>{"Your next\ngreat read\nawaits."}</Text>
+        <TouchableOpacity style={s.heroCta} activeOpacity={0.85}>
           <Text style={s.heroCtaText}>Browse Now</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Stacked book covers — replace Views with real covers later */}
-      <View style={s.stackContainer}>
+      <View style={s.stackWrap}>
         <View
           style={[
             s.stackCard,
             {
-              backgroundColor: "#aa99ff",
-              transform: [{ rotate: "9deg" }],
-              right: 0,
-              top: 14,
+              backgroundColor: "#C5BAFF",
+              transform: [{ rotate: "10deg" }],
+              right: 2,
+              top: 18,
             },
           ]}
         />
@@ -102,70 +85,37 @@ function HeroBanner() {
           style={[
             s.stackCard,
             {
-              backgroundColor: "#99bdff",
+              backgroundColor: "#C4D9FF",
               transform: [{ rotate: "4deg" }],
-              right: 10,
-              top: 7,
+              right: 12,
+              top: 8,
             },
           ]}
         />
         <View
           style={[
             s.stackCard,
-            { backgroundColor: "#80acff", right: 18, top: 0 },
+            { backgroundColor: "#E8F9FF", right: 22, top: 0 },
           ]}
         >
-          <View style={s.stackCardInner} />
+          <View style={s.stackInner} />
         </View>
       </View>
     </View>
   );
 }
 
-function CategoryPills({
-  active,
-  onSelect,
-}: {
-  active: string;
-  onSelect: (c: string) => void;
-}) {
-  return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={s.pillsRow}
-      style={{ marginBottom: 28 }}
-    >
-      {CATEGORIES.map((cat) => {
-        const isActive = cat === active;
-        return (
-          <TouchableOpacity
-            key={cat}
-            onPress={() => onSelect(cat)}
-            style={[s.pill, isActive && s.pillActive]}
-          >
-            <Text style={[s.pillText, isActive && s.pillTextActive]}>
-              {cat}
-            </Text>
-          </TouchableOpacity>
-        );
-      })}
-    </ScrollView>
-  );
-}
-
 function BookCard({ book }: { book: (typeof NEW_ARRIVALS)[0] }) {
   return (
-    <TouchableOpacity style={s.bookCard}>
+    <TouchableOpacity activeOpacity={0.85} style={s.bookCard}>
       <View style={[s.bookCover, { backgroundColor: book.color }]}>
-        {/* Decorative cover lines — replace with <Image> when you have covers */}
-        <View style={s.coverAccent} />
-        <View style={s.coverLines}>
-          <View style={s.coverLine} />
-          <View style={[s.coverLine, { width: 50, opacity: 0.25 }]} />
+        <View style={s.coverShine} />
+        <View style={{ padding: 12 }}>
+          <View style={s.coverLineShort} />
+          <View style={s.coverLineLong} />
         </View>
-        <View style={s.coverTitle}>
-          <Text style={s.coverTitleText} numberOfLines={2}>
+        <View style={s.coverBottom}>
+          <Text style={s.coverBottomText} numberOfLines={2}>
             {book.title}
           </Text>
         </View>
@@ -182,7 +132,7 @@ function BookCard({ book }: { book: (typeof NEW_ARRIVALS)[0] }) {
 function NewArrivals() {
   return (
     <View style={{ marginBottom: 32 }}>
-      <View style={s.sectionHeader}>
+      <View style={s.sectionRow}>
         <Text style={s.sectionTitle}>New Arrivals</Text>
         <TouchableOpacity>
           <Text style={s.seeAll}>See all →</Text>
@@ -193,46 +143,63 @@ function NewArrivals() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 14, paddingRight: 4 }}
       >
-        {NEW_ARRIVALS.map((book) => (
-          <BookCard key={book.id} book={book} />
+        {NEW_ARRIVALS.map((b) => (
+          <BookCard key={b.id} book={b} />
         ))}
       </ScrollView>
     </View>
   );
 }
 
-function GenreCard({ item }: { item: (typeof offers)[0] }) {
+// ─── Category Card — fanned book stack ───────────────────────────────────────
+
+function CategoryCard({
+  item,
+  isOdd,
+}: {
+  item: (typeof offers)[0];
+  isOdd: boolean;
+}) {
   return (
     <Pressable
-      android_ripple={{ color: "#ffffff22" }}
-      style={[s.genreCard, { backgroundColor: item.color }]}
+      android_ripple={{ color: "#ffffff28" }}
+      style={[
+        s.catCard,
+        { backgroundColor: item.color },
+        isOdd && s.catCardOffset,
+      ]}
     >
       {({ pressed }) => (
-        <View style={[s.genreCardInner, { opacity: pressed ? 0.9 : 1 }]}>
-          {/* Book image */}
-          <View style={s.genreImageWrap}>
-            <Image
-              source={item.image}
-              style={s.genreImage}
-              resizeMode="contain"
-            />
+        <View style={[s.catInner, { opacity: pressed ? 0.87 : 1 }]}>
+          {/* ── Decorative blob ── */}
+          <View style={s.catBlob} />
+
+          {/* ── Fanned book stack ── */}
+          <View style={s.booksWrap}>
+            {/* Left book — leans left, furthest back */}
+            <View style={[s.book, s.bookLeft]}>
+              <Image source={item.image} style={s.bookImg} resizeMode="cover" />
+              <View style={s.bookDarkTint} />
+            </View>
+
+            {/* Right book — leans right, middle layer */}
+            <View style={[s.book, s.bookRight]}>
+              <Image source={item.image} style={s.bookImg} resizeMode="cover" />
+              <View style={s.bookLightTint} />
+            </View>
+
+            {/* Center book — front, upright */}
+            <View style={[s.book, s.bookCenter]}>
+              <Image source={item.image} style={s.bookImg} resizeMode="cover" />
+            </View>
           </View>
 
-          {/* Info */}
-          <View style={s.genreInfo}>
-            <View style={s.genreBadge}>
-              <Text style={s.genreBadgeText}>GENRE</Text>
-            </View>
-            <Text style={s.genreTitle}>{item.title}</Text>
-            <View style={s.genreExplore}>
-              <Text style={s.genreExploreText}>Explore</Text>
-              <Image
-                source={images.arrowRight}
-                style={s.genreArrow}
-                resizeMode="contain"
-                tintColor="#ffffff"
-              />
-            </View>
+          {/* ── Footer: title only ── */}
+          <View style={s.catFooter}>
+            <View style={s.catDivider} />
+            <Text style={s.catTitle} numberOfLines={1}>
+              {item.title}
+            </Text>
           </View>
         </View>
       )}
@@ -240,111 +207,96 @@ function GenreCard({ item }: { item: (typeof offers)[0] }) {
   );
 }
 
-// ─── Main screen ─────────────────────────────────────────────────────────────
+// ─── Screen ───────────────────────────────────────────────────────────────────
 
 export default function Index() {
   const { user } = useAuthStore();
-  const [activeCategory, setActiveCategory] = React.useState("All");
 
-  const ListHeader = () => (
-    <View>
-      {/* ── Top bar ── */}
-      <View style={s.topBar}>
-        <View>
-          <Text style={s.greeting}>{getGreeting()} 👋</Text>
-          <Text style={s.username}>
-            {user?.name?.split(" ")[0] ?? "Reader"}
-          </Text>
-        </View>
-        <CartButton />
-      </View>
-
-      {/* ── Search ── */}
-      <TouchableOpacity style={s.searchBar}>
-        <Text style={s.searchIcon}>🔍</Text>
-        <Text style={s.searchPlaceholder}>Search books, authors...</Text>
-      </TouchableOpacity>
-
-      {/* ── Hero ── */}
-      <HeroBanner />
-
-      {/* ── Categories ── */}
-      <Text style={[s.sectionTitle, { marginBottom: 14 }]}>
-        Browse by Genre
-      </Text>
-      <CategoryPills active={activeCategory} onSelect={setActiveCategory} />
-
-      {/* ── New Arrivals ── */}
-      <NewArrivals />
-
-      {/* ── Genre cards header ── */}
-      <Text style={[s.sectionTitle, { marginBottom: 16 }]}>
-        Shop by Category
-      </Text>
-    </View>
-  );
+  const categoryPairs: (typeof offers)[] = [];
+  for (let i = 0; i < offers.length; i += 2) {
+    categoryPairs.push(offers.slice(i, i + 2));
+  }
 
   return (
     <SafeAreaView style={s.screen}>
-      <FlatList
-        data={offers}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <GenreCard item={item} />}
-        ListHeaderComponent={ListHeader}
-        contentContainerStyle={s.listContent}
+      <ScrollView
         showsVerticalScrollIndicator={false}
-      />
+        contentContainerStyle={s.scrollContent}
+      >
+        {/* ── Top bar ── */}
+        <View style={s.topBar}>
+          <View>
+            <Text style={s.greeting}>{getGreeting()} 👋</Text>
+            <Text style={s.username}>
+              {user?.name?.split(" ")[0] ?? "Reader"}
+            </Text>
+          </View>
+          <CartButton />
+        </View>
+
+        {/* ── Hero ── */}
+        <HeroBanner />
+
+        {/* ── New Arrivals ── */}
+        <NewArrivals />
+
+        {/* ── Explore Categories ── */}
+        <View style={s.sectionRow}>
+          <Text style={s.sectionTitle}>Explore Categories</Text>
+          <TouchableOpacity>
+            <Text style={s.seeAll}>See all →</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={s.catGrid}>
+          {categoryPairs.map((pair, rowIdx) => (
+            <View key={rowIdx} style={s.catRow}>
+              {pair.map((item, colIdx) => (
+                <View key={item.id} style={s.catCell}>
+                  <CategoryCard item={item} isOdd={colIdx === 1} />
+                </View>
+              ))}
+              {pair.length === 1 && <View style={s.catCell} />}
+            </View>
+          ))}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
-const CREAM = "#FAF7F2";
-const INK = "#1a1410";
-const MUTED = "#9c8e7e";
-const GOLD = "#C9A84C";
-const BORDER = "#e8e0d6";
-const WHITE = "#ffffff";
+const BG = "#FBFBFB";
+const WHITE = "#FFFFFF";
+const PRIMARY = "#7C6FFF";
+const LAVENDER = "#C5BAFF";
+const INK = "#1C1B2E";
+const MUTED = "#8B8BA8";
 
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: CREAM },
-  listContent: { paddingBottom: 112, paddingHorizontal: 20 },
+  screen: { flex: 1, backgroundColor: BG },
+  scrollContent: { paddingBottom: 120, paddingHorizontal: 20 },
 
-  // ── Top bar
   topBar: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: 8,
-    marginBottom: 24,
+    marginBottom: 22,
   },
   greeting: { fontSize: 13, color: MUTED, fontWeight: "500", marginBottom: 2 },
-  username: { fontSize: 24, fontWeight: "800", color: INK },
-
-  // ── Search
-  searchBar: {
-    backgroundColor: WHITE,
-    borderRadius: 14,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    marginBottom: 24,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 3,
+  username: {
+    fontSize: 26,
+    fontWeight: "800",
+    color: INK,
+    letterSpacing: -0.5,
   },
-  searchIcon: { fontSize: 16 },
-  searchPlaceholder: { color: "#c4b8a8", fontSize: 15 },
 
-  // ── Hero
+  // Hero
   hero: {
     backgroundColor: INK,
-    borderRadius: 24,
+    borderRadius: 28,
     padding: 24,
     marginBottom: 28,
     flexDirection: "row",
@@ -352,145 +304,209 @@ const s = StyleSheet.create({
     overflow: "hidden",
   },
   heroBadge: {
-    backgroundColor: GOLD,
-    borderRadius: 6,
+    backgroundColor: LAVENDER,
+    borderRadius: 8,
     paddingHorizontal: 10,
-    paddingVertical: 3,
+    paddingVertical: 4,
     alignSelf: "flex-start",
-    marginBottom: 12,
+    marginBottom: 14,
   },
   heroBadgeText: {
     color: INK,
     fontSize: 10,
     fontWeight: "800",
-    letterSpacing: 1.2,
+    letterSpacing: 1.4,
   },
   heroHeadline: {
     color: WHITE,
-    fontSize: 24,
-    fontWeight: "800",
-    lineHeight: 30,
-    marginBottom: 18,
+    fontSize: 26,
+    fontWeight: "900",
+    lineHeight: 32,
+    marginBottom: 20,
+    letterSpacing: -0.5,
   },
   heroCta: {
-    backgroundColor: GOLD,
-    borderRadius: 12,
-    paddingHorizontal: 20,
-    paddingVertical: 11,
+    backgroundColor: PRIMARY,
+    borderRadius: 14,
+    paddingHorizontal: 22,
+    paddingVertical: 12,
     alignSelf: "flex-start",
   },
-  heroCtaText: { color: INK, fontWeight: "700", fontSize: 13 },
-  stackContainer: { width: 110, height: 140, position: "relative" },
-  stackCard: { position: "absolute", width: 82, height: 116, borderRadius: 10 },
-  stackCardInner: {
+  heroCtaText: { color: WHITE, fontWeight: "700", fontSize: 14 },
+  stackWrap: { width: 110, height: 145, position: "relative" },
+  stackCard: { position: "absolute", width: 84, height: 118, borderRadius: 12 },
+  stackInner: {
     flex: 1,
+    margin: 6,
     borderRadius: 8,
-    backgroundColor: "#6b96f5",
-    margin: 5,
+    backgroundColor: "#dce8ff",
   },
 
-  // ── Section shared
-  sectionHeader: {
+  // Section header
+  sectionRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 14,
+    marginBottom: 16,
   },
-  sectionTitle: { fontSize: 19, fontWeight: "800", color: INK },
-  seeAll: { color: GOLD, fontWeight: "600", fontSize: 13 },
-
-  // ── Category pills
-  pillsRow: { gap: 8, paddingRight: 4 },
-  pill: {
-    backgroundColor: WHITE,
-    borderRadius: 20,
-    paddingHorizontal: 18,
-    paddingVertical: 9,
-    borderWidth: 1.5,
-    borderColor: BORDER,
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: INK,
+    letterSpacing: -0.3,
   },
-  pillActive: { backgroundColor: INK, borderColor: INK },
-  pillText: { color: "#6b5f52", fontWeight: "600", fontSize: 13 },
-  pillTextActive: { color: WHITE },
+  seeAll: { color: PRIMARY, fontWeight: "600", fontSize: 13 },
 
-  // ── Book card
-  bookCard: { width: 130 },
+  // New Arrivals book card
+  bookCard: { width: 132 },
   bookCover: {
-    width: 130,
-    height: 185,
-    borderRadius: 14,
+    width: 132,
+    height: 188,
+    borderRadius: 16,
     marginBottom: 10,
     overflow: "hidden",
   },
-  coverAccent: {
+  coverShine: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(255,255,255,0.1)",
+  },
+  coverLineShort: {
+    width: 30,
+    height: 3,
+    backgroundColor: "rgba(255,255,255,0.5)",
+    borderRadius: 2,
+    marginBottom: 6,
+  },
+  coverLineLong: {
+    width: 52,
+    height: 3,
+    backgroundColor: "rgba(255,255,255,0.3)",
+    borderRadius: 2,
+  },
+  coverBottom: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    height: 55,
-    backgroundColor: "rgba(0,0,0,0.15)",
+    backgroundColor: "rgba(0,0,0,0.2)",
+    padding: 12,
   },
-  coverLines: { padding: 14 },
-  coverLine: {
-    width: 32,
-    height: 3,
-    backgroundColor: "rgba(255,255,255,0.4)",
-    borderRadius: 2,
-    marginBottom: 6,
-  },
-  coverTitle: { position: "absolute", bottom: 14, left: 14, right: 14 },
-  coverTitleText: {
+  coverBottomText: {
     color: WHITE,
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: "700",
-    lineHeight: 17,
+    lineHeight: 16,
   },
-  bookTitle: { color: INK, fontSize: 13, fontWeight: "600", marginBottom: 2 },
+  bookTitle: { color: INK, fontSize: 13, fontWeight: "700", marginBottom: 2 },
   bookAuthor: { color: MUTED, fontSize: 12, marginBottom: 4 },
-  bookPrice: { color: GOLD, fontSize: 13, fontWeight: "700" },
+  bookPrice: { color: PRIMARY, fontSize: 13, fontWeight: "800" },
 
-  // ── Genre card
-  genreCard: {
-    borderRadius: 20,
-    marginBottom: 16,
-    overflow: "hidden",
+  // ── Category grid ──────────────────────────────────────────────────────────
+  catGrid: { gap: 0, marginBottom: 32 },
+  catRow: { flexDirection: "row", gap: 14, marginBottom: 14 },
+  catCell: { flex: 1 },
+
+  catCard: {
+    borderRadius: 24,
     height: 200,
+    // Clip the inner view but let the card itself not clip
+    overflow: "hidden",
   },
-  genreCardInner: { flex: 1, flexDirection: "row" },
-  genreImageWrap: { width: "45%", padding: 16, paddingVertical: 12 },
-  genreImage: { width: "100%", height: "100%" },
-  genreInfo: {
+  catCardOffset: { marginTop: 24 },
+
+  catInner: {
     flex: 1,
+    padding: 16,
+    paddingBottom: 0,
+  },
+
+  // Blob: large soft circle in the top-right corner
+  catBlob: {
+    position: "absolute",
+    top: -36,
+    right: -36,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: "rgba(255,255,255,0.15)",
+  },
+
+  // ── Fanned books ──────────────────────────────────────────────────────────
+  booksWrap: {
+    flex: 1,
+    alignItems: "center",
     justifyContent: "center",
-    paddingRight: 22,
-    paddingVertical: 24,
   },
-  genreBadge: {
-    backgroundColor: "rgba(255,255,255,0.2)",
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    alignSelf: "flex-start",
-    marginBottom: 10,
+
+  // Base book style — all three share this
+  book: {
+    position: "absolute",
+    width: 60,
+    height: 86,
+    borderRadius: 9,
+    overflow: "hidden",
   },
-  genreBadgeText: {
+
+  // Left book: translate left → rotate so the top tilts left
+  bookLeft: {
+    transform: [{ translateX: -28 }, { translateY: 5 }, { rotate: "-20deg" }],
+    zIndex: 1,
+  },
+  // Right book: translate right → rotate so the top tilts right
+  bookRight: {
+    transform: [{ translateX: 28 }, { translateY: 5 }, { rotate: "20deg" }],
+    zIndex: 2,
+  },
+  // Center book: upright, on top
+  bookCenter: {
+    zIndex: 3,
+    // iOS shadow for depth on the front book
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.28,
+    shadowRadius: 7,
+    elevation: 6,
+  },
+
+  bookImg: { width: "100%", height: "100%" },
+
+  // Dark tint overlay on the furthest-back (left) book
+  bookDarkTint: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.22)",
+  },
+  // Lighter tint on the right (middle-layer) book
+  bookLightTint: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.10)",
+  },
+
+  // ── Footer ─────────────────────────────────────────────────────────────────
+  catFooter: {
+    paddingBottom: 15,
+    paddingTop: 10,
+  },
+  catDivider: {
+    height: 1,
+    backgroundColor: "rgba(255,255,255,0.28)",
+    marginBottom: 9,
+  },
+  catTitle: {
     color: WHITE,
-    fontSize: 10,
-    fontWeight: "700",
-    letterSpacing: 0.8,
-  },
-  genreTitle: {
-    color: WHITE,
-    fontSize: 26,
-    fontWeight: "800",
-    lineHeight: 30,
-    marginBottom: 14,
-  },
-  genreExplore: { flexDirection: "row", alignItems: "center", gap: 6 },
-  genreExploreText: {
-    color: "rgba(255,255,255,0.9)",
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: "800",
+    letterSpacing: -0.1,
   },
-  genreArrow: { width: 16, height: 16 },
 });
