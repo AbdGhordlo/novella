@@ -41,9 +41,6 @@ import salad from "@/assets/images/salad.png";
 import success from "@/assets/images/success.png";
 import tomatoes from "@/assets/images/tomatoes.png";
 
-import classicNovel1 from "@/assets/images/Classic-Novel-2.jpg";
-import fictionNovel from "@/assets/images/Fiction-Novel.jpg";
-import NonFiction from "@/assets/images/Non-Fiction.jpg";
 import webNovel from "@/assets/images/Web-Novel.jpg";
 
 export const CATEGORIES = [
@@ -72,27 +69,63 @@ export const CATEGORIES = [
 export const offers = [
   {
     id: 1,
-    title: "Fiction",
-    image: classicNovel1,
-    color: "#99bdff",
+    title: "Classic Novels",
+    image: webNovel,
+    color: "#7A5C8A",
   },
   {
     id: 2,
-    title: "Non-Fiction",
-    image: NonFiction,
-    color: "#80acff",
+    title: "Fantasy",
+    image: webNovel,
+    color: "#4A6FA5",
   },
   {
     id: 3,
-    title: "Children & Young Adults",
-    image: fictionNovel,
-    color: "#aa99ff",
+    title: "Psychology",
+    image: webNovel,
+    color: "#3D8C7A",
   },
   {
     id: 4,
+    title: "History",
+    image: webNovel,
+    color: "#9B6F3A",
+  },
+  {
+    id: 5,
+    title: "Self-Help",
+    image: webNovel,
+    color: "#C45E3E",
+  },
+  {
+    id: 6,
+    title: "Science Fiction",
+    image: webNovel,
+    color: "#3A5F7A",
+  },
+  {
+    id: 7,
+    title: "Mystery & Thriller",
+    image: webNovel,
+    color: "#3C3C62",
+  },
+  {
+    id: 8,
+    title: "Romance",
+    image: webNovel,
+    color: "#A84F6B",
+  },
+  {
+    id: 9,
+    title: "Children & YA",
+    image: webNovel,
+    color: "#4E8C60",
+  },
+  {
+    id: 10,
     title: "Web & Light Novels",
     image: webNovel,
-    color: "#a6a6a6",
+    color: "#5568A0",
   },
 ];
 

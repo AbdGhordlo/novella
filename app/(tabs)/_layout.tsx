@@ -1,24 +1,26 @@
 import { images } from "@/constants";
 import useAuthStore from "@/store/auth.store";
 import { TabBarIconProps } from "@/type";
-import cn from "clsx";
 import { Redirect, Tabs } from "expo-router";
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
+
+const PRIMARY = "#7C6FFF";
+const INACTIVE = "#B0AECF";
+const WHITE = "#FFFFFF";
+const LAVENDER = "#C5BAFF";
 
 const TabBarIcon = ({ focused, icon, title }: TabBarIconProps) => (
-  <View className="tab-icon">
+  <View style={[ts.iconWrap, focused && ts.iconWrapActive]}>
     <Image
       source={icon}
-      className="size-7"
+      style={ts.iconImg}
       resizeMode="contain"
-      tintColor={focused ? "#9580ff" : "#5D5F6D"}
+      tintColor={focused ? PRIMARY : INACTIVE}
     />
     <Text
-      className={cn(
-        "text-sm font-bold",
-        focused ? "text-primary" : "text-gray-200",
-      )}
+      style={[ts.iconLabel, focused && ts.iconLabelActive]}
+      numberOfLines={1}
     >
       {title}
     </Text>
@@ -29,8 +31,9 @@ export default function TabLayout() {
   const { isAuthenticated } = useAuthStore();
 
   if (!isAuthenticated) {
-    return <Redirect href={"/sign-in"} />;
+    return <Redirect href="/sign-in" />;
   }
+
   return (
     <Tabs
       screenOptions={{
@@ -97,3 +100,32 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const ts = StyleSheet.create({
+  iconWrap: {
+    minWidth: 70,
+    minHeight: "150%",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+    marginTop: 36,
+    borderRadius: 24,
+    paddingVertical: 20,
+  },
+
+  iconImg: {
+    width: 28,
+    height: 28,
+  },
+
+  iconLabel: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: INACTIVE,
+    includeFontPadding: false,
+  },
+
+  iconLabelActive: {
+    color: PRIMARY,
+  },
+});
