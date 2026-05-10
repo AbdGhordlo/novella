@@ -2,9 +2,9 @@ import CartButton from "@/components/CartButton";
 import Filter from "@/components/Filter";
 import MenuCard from "@/components/MenuCard";
 import SearchBar from "@/components/SearchBar";
-import { getCategories, getMenu } from "@/lib/appwrite";
+import { getBooks, getCategories } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
-import { MenuItem } from "@/type";
+import { AppwriteBook } from "@/type";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect } from "react";
 import {
@@ -22,37 +22,39 @@ const Search = () => {
     category: string;
   }>();
 
-  const { data, refetch, loading } = useAppwrite({
-    fn: getMenu,
-    params: { category, query, limit: 6 },
+  const {
+    data: books,
+    refetch,
+    loading,
+  } = useAppwrite({
+    fn: getBooks,
+    params: { category, query, limit: 20 },
   });
 
   useEffect(() => {
-    refetch({ category, query, limit: 6 });
+    refetch({ category, query, limit: 20 });
   }, [category, query]);
 
   const { data: categories } = useAppwrite({ fn: getCategories });
 
-  const activeCategory = categories?.find((item) => item.$id === category);
+  const activeCategory = categories?.find((c) => c.$id === category);
 
   return (
     <SafeAreaView style={s.screen}>
       <FlatList
-        data={data}
+        data={books}
         keyExtractor={(item) => item.$id}
         numColumns={2}
         columnWrapperStyle={s.columnWrapper}
         contentContainerStyle={s.listContent}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          // Equal-width cells, no odd/even offset
           <View style={s.cardWrap}>
-            <MenuCard item={item as MenuItem} />
+            <MenuCard item={item as unknown as AppwriteBook} />
           </View>
         )}
         ListHeaderComponent={() => (
           <View style={s.header}>
-            {/* ── Title row ── */}
             <View style={s.titleRow}>
               <View>
                 <Text style={s.eyebrow}>DISCOVER</Text>
@@ -61,13 +63,11 @@ const Search = () => {
               <CartButton />
             </View>
 
-            {/* ── Search bar ── */}
             <View style={s.searchWrap}>
               <SearchBar />
             </View>
 
-            {/* ── Active search context banner ── */}
-            {(query || category) && (
+            {(query || activeCategory) && (
               <View style={s.contextBanner}>
                 <Text style={s.contextText}>
                   {query
@@ -77,7 +77,6 @@ const Search = () => {
               </View>
             )}
 
-            {/* ── Filters ── */}
             <Filter categories={categories!} />
 
             <View style={s.divider} />
@@ -106,12 +105,8 @@ const Search = () => {
 
 export default Search;
 
-// ─── Styles ───────────────────────────────────────────────────────────────────
-
 const BG = "#FBFBFB";
-const WHITE = "#FFFFFF";
 const PRIMARY = "#7C6FFF";
-const LAVENDER = "#C5BAFF";
 const INK = "#1C1B2E";
 const MUTED = "#8B8BA8";
 const BORDER = "#EBEBF5";
@@ -119,12 +114,8 @@ const BORDER = "#EBEBF5";
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: BG },
   listContent: { paddingBottom: 120, paddingHorizontal: 20 },
-
-  // Grid — flat, no stagger
   columnWrapper: { gap: 14, marginBottom: 14 },
-  cardWrap: { width: "48%" },
-
-  // Header
+  cardWrap: { flex: 1 },
   header: { marginTop: 8, marginBottom: 8 },
   titleRow: {
     flexDirection: "row",
@@ -146,11 +137,7 @@ const s = StyleSheet.create({
     lineHeight: 35,
     letterSpacing: -0.5,
   },
-
-  searchWrap: {
-    marginBottom: 14,
-  },
-
+  searchWrap: { marginBottom: 14 },
   contextBanner: {
     backgroundColor: "#EDE9FF",
     borderRadius: 10,
@@ -160,15 +147,12 @@ const s = StyleSheet.create({
     alignSelf: "flex-start",
   },
   contextText: { color: PRIMARY, fontSize: 13, fontWeight: "600" },
-
   divider: {
     height: 1,
     backgroundColor: BORDER,
     marginTop: 8,
     marginBottom: 20,
   },
-
-  // Empty / loading states
   centered: {
     flex: 1,
     alignItems: "center",

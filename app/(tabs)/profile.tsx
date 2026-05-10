@@ -1,12 +1,14 @@
+import seed from "@/lib/bookSeed";
 import useAuthStore from "@/store/auth.store";
 import { router } from "expo-router";
 import React from "react";
 import {
+  Button,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -177,6 +179,12 @@ const Profile = () => {
         </TouchableOpacity>
 
         <Text style={s.version}>Novella v1.0.0</Text>
+        <Button
+          title="Seed"
+          onPress={() =>
+            seed().catch((e) => console.log("Failed to seed the database.", e))
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   );
