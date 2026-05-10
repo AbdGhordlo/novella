@@ -158,4 +158,4 @@ async function seed(): Promise<void> {
   console.log("✅ Seeding complete.");
 }
 
-export default seed;
+// export default seed;

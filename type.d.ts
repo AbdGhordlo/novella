@@ -105,3 +105,65 @@ interface GetMenuParams {
   category: string;
   query: string;
 }
+
+// ── Appwrite query params ──────────────────────────────────────────────────────
+
+export type GetBooksParams = {
+  category?: string; // Appwrite category document ID
+  query?: string; // Full-text search string
+  limit?: number; // Default 20
+  offset?: number; // For pagination, default 0
+};
+
+export type AddReviewParams = {
+  userId: string;
+  bookId: string;
+  rating: number; // 1–5
+  comment?: string;
+};
+
+// ── Book / Author / Category shapes ───────────────────────────────────────────
+// These mirror what Appwrite returns. Extend as your schema grows.
+
+export type AppwriteCategory = {
+  $id: string;
+  $createdAt: string;
+  name: string;
+};
+
+export type AppwriteAuthor = {
+  $id: string;
+  name: string;
+  bio?: string;
+  profile_image?: string; // file ID or URL
+};
+
+export type AppwriteBook = {
+  $id: string;
+  $createdAt: string;
+  title: string;
+  description?: string;
+  cover_image?: string; // file ID — pass to getBookCoverUrl()
+  published_date?: string;
+  language?: string;
+  page_count?: number;
+  is_web_novel?: boolean;
+  // Appwrite relationship fields (populated automatically on fetch)
+  authors?: AppwriteAuthor[];
+  categories?: AppwriteCategory[];
+};
+
+export type AppwriteReview = {
+  $id: string;
+  $createdAt: string;
+  user_id: string;
+  book_id: string;
+  rating: number;
+  comment?: string;
+};
+
+export type AppwriteFavorite = {
+  $id: string;
+  user_id: string;
+  book_id: string | AppwriteBook; // Appwrite may return the related doc
+};
