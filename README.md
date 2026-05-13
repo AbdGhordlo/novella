@@ -1,50 +1,215 @@
-# Welcome to your Expo app 👋
+<p align="center">
+  <img src="assets/images/Novella-Logo-with-Text-No-BG.png" alt="Novella Logo" width="350" />
+</p>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<h1 align="center">Novella</h1>
 
-## Get started
+<p align="center">
+  A modern React Native mobile app for discovering and purchasing books and novels.
+</p>
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+# 📖 About Novella
 
-2. Start the app
+Novella is a mobile bookstore application built with React Native and Expo.  
+It allows users to browse books and novels, search for titles, manage their cart, and explore a clean and modern reading-focused interface.
 
-   ```bash
-   npx expo start
-   ```
+The application uses Appwrite as the backend/database solution and Zustand for lightweight global state management.
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+# ✨ Features
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- 🔐 User Authentication
+  - Sign In
+  - Sign Up
 
-## Get a fresh project
+- 🏠 Home Screen
+  - Browse featured books and novels
+  - Explore categories and recommendations
 
-When you're ready, run:
+- 🔎 Search System
+  - Search books dynamically
+  - Filter and discover titles quickly
+
+- 🛒 Cart Management
+  - Add/remove items
+  - Quantity management
+  - Persistent cart state using Zustand
+
+- 👤 User Profile
+  - User information
+  - Account-related features
+
+---
+
+# 📱 Screens
+
+## Authentication
+
+<p align="center">
+  <img src="assets/images/screens/sign-in.png" width="250" />
+  <img src="assets/images/screens/sign-up.png" width="250" />
+</p>
+
+---
+
+## Home Screen
+
+<p align="center">
+  <img src="assets/images/screens/home-1.png" width="220" />
+  <img src="assets/images/screens/home-2.png" width="220" />
+  <img src="assets/images/screens/home-3.png" width="220" />
+</p>
+
+---
+
+## Search Screen
+
+<p align="center">
+  <img src="assets/images/screens/search-1.png" width="250" />
+  <img src="assets/images/screens/search-2.png" width="250" />
+</p>
+
+---
+
+## Cart Screen
+
+<p align="center">
+  <img src="assets/images/screens/cart.png" width="250" />
+</p>
+
+---
+
+## Profile Screen
+
+<p align="center">
+  <img src="assets/images/screens/profile-1.png" width="250" />
+  <img src="assets/images/screens/profile-2.png" width="250" />
+</p>
+
+---
+
+# 🛠️ Tech Stack
+
+- React Native
+- Expo
+- Expo Router
+- TypeScript
+- Zustand
+- Appwrite
+- NativeWind / Stylesheets
+
+---
+
+# 📂 Project Structure
 
 ```bash
-npm run reset-project
+app/                # Expo Router screens
+components/         # Reusable UI components
+constants/          # Static data/constants
+lib/                # Appwrite config, hooks, utilities
+store/              # Zustand stores
+assets/             # Images, fonts, icons
+types/              # TypeScript types/interfaces
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+# 🚀 Getting Started
 
-To learn more about developing your project with Expo, look at the following resources:
+## 1. Install dependencies
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm install
+```
 
-## Join the community
+## 2. Start the application
 
-Join our community of developers creating universal apps.
+```bash
+npx expo start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+In the output, you'll find options to open the app in:
+
+- Android Emulator
+- iOS Simulator
+- Expo Go
+- Development Build
+
+---
+
+# 🔧 Environment Variables
+
+Create a `.env` file in the root directory and configure your Appwrite credentials.
+
+Example:
+
+```env
+EXPO_PUBLIC_APPWRITE_PROJECT_ID=
+EXPO_PUBLIC_APPWRITE_DATABASE_ID=
+EXPO_PUBLIC_APPWRITE_BUCKET_ID=
+EXPO_PUBLIC_APPWRITE_ENDPOINT=
+```
+
+---
+
+# 🗄️ Backend
+
+Novella uses Appwrite for:
+
+- Authentication
+- Database management
+- File storage
+- API services
+
+---
+
+# 📦 State Management
+
+Global state management is handled using Zustand.
+
+Examples:
+
+- Cart state
+- Quantity management
+- Shared app state
+
+---
+
+# 🧭 Routing
+
+The project uses Expo Router with file-based routing.
+
+Example:
+
+```bash
+app/
+ ├── index.tsx
+ ├── search.tsx
+ ├── cart.tsx
+ ├── profile.tsx
+```
+
+---
+
+# 🎨 Styling
+
+The application uses React Native styling with utility-based styling patterns for building responsive and reusable UI components.
+
+---
+
+# 📚 Learn More
+
+- Expo Documentation  
+  https://docs.expo.dev/
+
+- React Native Documentation  
+  https://reactnative.dev/
+
+- Appwrite Documentation  
+  https://appwrite.io/docs
+
+- Zustand Documentation  
+  https://zustand-demo.pmnd.rs/
