@@ -1,4 +1,4 @@
-import seed from "@/lib/bookSeed";
+import seed from "@/lib/seed";
 import useAuthStore from "@/store/auth.store";
 import { router } from "expo-router";
 import React from "react";

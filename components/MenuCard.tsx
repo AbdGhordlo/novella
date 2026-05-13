@@ -1,4 +1,3 @@
-import { appwriteConfig } from "@/lib/appwrite";
 import { useCartStore } from "@/store/cart.store";
 import { MenuItem } from "@/type";
 import React from "react";
@@ -17,8 +16,8 @@ type MenuCardItem = MenuItem & {
 };
 
 const MenuCard = ({ item }: { item: MenuCardItem }) => {
-  const { $id, image_url, name, price } = item;
-  const imageUrl = `${image_url}?project=${appwriteConfig.projectId}`;
+  const { $id, cover_image, name, price } = item;
+  const imageUrl = `${cover_image}`;
   const { addItem } = useCartStore();
 
   // First category name if available

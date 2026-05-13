@@ -30,6 +30,9 @@ export const appwriteConfig = {
   categoriesCollectionId: "categories",
   reviewsCollectionId: "reviews",
   favoritesCollectionId: "favorites",
+  bookCategoriesCollectionId: "book_categories",
+  bookAuthorsCollectionId: "book_authors",
+  userBooksCollectionId: "user_books",
 };
 
 // ─── Client ───────────────────────────────────────────────────────────────────
@@ -182,7 +185,7 @@ export const getBooks = async ({
       appwriteConfig.booksCollectionId,
       queries,
     );
-
+    console.log("getBooks:", JSON.stringify(result.documents, null, 2));
     return result.documents;
   } catch (error) {
     console.error("getBooks:", error);

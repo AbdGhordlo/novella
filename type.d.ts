@@ -3,7 +3,7 @@ import { Models } from "react-native-appwrite";
 export interface MenuItem extends Models.Document {
   name: string;
   price: number;
-  image_url: string;
+  cover_image: string;
   description: string;
   calories: number;
   protein: number;
