@@ -59,7 +59,9 @@ The application uses Appwrite as the backend/database solution and Zustand for l
 
 <p align="center">
   <img src="assets/images/screens/home-1.png" width="220" />
+  &nbsp;&nbsp;&nbsp;
   <img src="assets/images/screens/home-2.png" width="220" />
+  &nbsp;&nbsp;&nbsp;
   <img src="assets/images/screens/home-3.png" width="220" />
 </p>
 
@@ -69,6 +71,7 @@ The application uses Appwrite as the backend/database solution and Zustand for l
 
 <p align="center">
   <img src="assets/images/screens/search-1.png" width="250" />
+  &nbsp;&nbsp;&nbsp;
   <img src="assets/images/screens/search-2.png" width="250" />
 </p>
 
@@ -86,6 +89,7 @@ The application uses Appwrite as the backend/database solution and Zustand for l
 
 <p align="center">
   <img src="assets/images/screens/profile-1.png" width="250" />
+  &nbsp;&nbsp;&nbsp;
   <img src="assets/images/screens/profile-2.png" width="250" />
 </p>
 
