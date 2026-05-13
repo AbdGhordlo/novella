@@ -14,384 +14,686 @@ export interface DummyAuthor {
 export interface DummyBook {
   title: string;
   description: string;
+  /** Local asset path — resolved to an absolute path by seed.ts */
   coverImage: string;
   publishedDate: string; // ISO 8601
   language: string;
   pageCount: number;
   isWebNovel: boolean;
-  // references by name — resolved to IDs during seeding
-  categoryNames: string[];
-  authorNames: string[];
+  price: number; // USD
+  categoryNames: string[]; // must match a name in the categories array
+  authorNames: string[]; // must match a name in the authors array
 }
 
 // ─── Categories ───────────────────────────────────────────────────────────────
 
 export const categories: DummyCategory[] = [
   {
-    name: "Fiction",
+    name: "Classic Novels",
     description:
-      "Imaginative narratives and invented stories across all styles and settings.",
-  },
-  {
-    name: "Non-Fiction",
-    description: "Factual works covering real events, people, and ideas.",
-  },
-  {
-    name: "Science Fiction",
-    description:
-      "Speculative stories rooted in science, technology, and the future.",
+      "Enduring literary masterpieces that have shaped culture and storytelling across generations.",
   },
   {
     name: "Fantasy",
     description:
-      "Epic tales of magic, mythical creatures, and alternate worlds.",
+      "Epic tales of magic, mythical creatures, and worlds beyond imagination.",
   },
   {
-    name: "Mystery & Thriller",
+    name: "Psychology",
     description:
-      "Suspenseful plots driven by crime, secrets, and high-stakes tension.",
+      "Explorations of the human mind — how we think, feel, decide, and find meaning.",
   },
   {
-    name: "Romance",
+    name: "History",
     description:
-      "Stories centred on love, relationships, and emotional connection.",
+      "Sweeping accounts of civilisations, events, and the forces that shaped the modern world.",
   },
   {
     name: "Self-Help",
     description:
-      "Practical guides for personal growth, habits, and well-being.",
+      "Practical frameworks and hard-won wisdom for building better habits, focus, and lives.",
   },
   {
-    name: "Biography & Memoir",
-    description: "Real-life stories of remarkable people told in depth.",
-  },
-  {
-    name: "Children & Young Adult",
-    description: "Books crafted for younger readers and teens.",
-  },
-  {
-    name: "Web Novel",
-    description: "Serialised online fiction published chapter-by-chapter.",
-  },
-  {
-    name: "Light Novel",
+    name: "Science Fiction",
     description:
-      "Japanese-style illustrated prose novels, often adapted into anime.",
+      "Speculative visions of the future — technology, space, and what it means to be human.",
   },
   {
-    name: "Horror",
+    name: "Mystery & Thriller",
     description:
-      "Dark and frightening fiction designed to unsettle and terrify.",
+      "Gripping plots built on crime, deception, and relentless tension.",
+  },
+  {
+    name: "Romance",
+    description:
+      "Stories centred on love, longing, and the full spectrum of human connection.",
+  },
+  {
+    name: "Children & YA",
+    description:
+      "Adventures and coming-of-age stories crafted for younger readers and teens.",
+  },
+  {
+    name: "Web & Light Novels",
+    description:
+      "Serialised online fiction and Japanese-style illustrated prose, loved worldwide.",
   },
 ];
 
 // ─── Authors ──────────────────────────────────────────────────────────────────
 
 export const authors: DummyAuthor[] = [
+  // ── Classic Novels ──────────────────────────────────────────────────────
   {
-    name: "Matt Haig",
-    bio: "British author known for his novels on mental health, magic, and mortality. His book 'Reasons to Stay Alive' became a global phenomenon.",
+    name: "Fyodor Dostoevsky",
+    bio: "Russian novelist and philosopher widely regarded as one of the greatest writers of all time. His works explore the depths of the human psyche, morality, and suffering.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Matt_Haig_2019.jpg/440px-Matt_Haig_2019.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Vasily_Perov_-_%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%A4.%D0%9C.%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B5%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_-_Google_Art_Project.jpg/440px-Vasily_Perov_-_%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%A4.%D0%9C.%D0%94%D0%BE%D1%81%D1%82%D0%BE%D0%B5%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_-_Google_Art_Project.jpg",
   },
   {
-    name: "James Clear",
-    bio: "Author and speaker focused on habits, decision-making, and continuous improvement. Creator of the 'Atomic Habits' framework.",
+    name: "George Orwell",
+    bio: "English novelist, essayist, and critic whose work is marked by lucid prose, social criticism, and opposition to totalitarianism. Author of two of the most influential novels of the 20th century.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/James_Clear%2C_author_of_Atomic_Habits.jpg/440px-James_Clear%2C_author_of_Atomic_Habits.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/George_Orwell_press_photo.jpg/440px-George_Orwell_press_photo.jpg",
   },
+  {
+    name: "Alexandre Dumas",
+    bio: "French author celebrated for his historical adventure novels. His swashbuckling stories, full of romance and intrigue, have been adapted into countless films and plays.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Alexandre_Dumas_p%C3%A8re_by_Nadar_-2.jpg/440px-Alexandre_Dumas_p%C3%A8re_by_Nadar_-2.jpg",
+  },
+
+  // ── Fantasy ─────────────────────────────────────────────────────────────
   {
     name: "Patrick Rothfuss",
-    bio: "American fantasy author best known for 'The Kingkiller Chronicle' series, praised for its rich world-building and lyrical prose.",
+    bio: "American fantasy author best known for The Kingkiller Chronicle, a series praised for its literary prose, intricate world-building, and deeply human protagonist.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Patrick_Rothfuss_-_Lucca_Comics_%26_Games_2018.jpg/440px-Patrick_Rothfuss_-_Lucca_Comics_%26_Games_2018.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Patrick_Rothfuss_-_Lucca_Comics_%26_Games_2018.jpg/440px-Patrick_Rothfuss_-_Lucca_Comics_%26_Games_2018.jpg",
   },
   {
-    name: "Frank Herbert",
-    bio: "Legendary science fiction author whose 'Dune' series is considered one of the greatest works of speculative fiction ever written.",
+    name: "J.R.R. Tolkien",
+    bio: "English writer, poet, and academic. The creator of Middle-earth, whose works The Hobbit and The Lord of the Rings fundamentally shaped the modern fantasy genre.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/FrankHerbert.jpg/440px-FrankHerbert.jpg",
-  },
-  {
-    name: "Agatha Christie",
-    bio: "The Queen of Crime, author of 66 detective novels. Creator of iconic sleuths Hercule Poirot and Miss Marple.",
-    profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Agatha_Christie.png/440px-Agatha_Christie.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/J._R._R._Tolkien%2C_ca._1925.jpg/440px-J._R._R._Tolkien%2C_ca._1925.jpg",
   },
   {
     name: "Brandon Sanderson",
-    bio: "Prolific epic fantasy author known for the 'Cosmere' universe, including 'The Stormlight Archive' and 'Mistborn' series.",
+    bio: "American author of epic fantasy and science fiction. Known for his meticulously designed magic systems and the vast, interconnected Cosmere universe.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/BrandonSanderson_2016.jpg/440px-BrandonSanderson_2016.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/n/nd/BrandonSanderson2022.jpg/440px-BrandonSanderson2022.jpg",
   },
+
+  // ── Psychology ──────────────────────────────────────────────────────────
   {
-    name: "Colleen Hoover",
-    bio: "New York Times bestselling author of contemporary romance and new adult fiction, known for emotionally gripping storylines.",
+    name: "Daniel Kahneman",
+    bio: "Nobel Prize-winning psychologist and economist. His research on cognitive biases and decision-making under uncertainty changed how we understand the human mind.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Colleen_Hoover_by_Gage_Skidmore.jpg/440px-Colleen_Hoover_by_Gage_Skidmore.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Daniel_Kahneman_Nobel_Prize_%28cropped%29.jpg/440px-Daniel_Kahneman_Nobel_Prize_%28cropped%29.jpg",
   },
   {
-    name: "Walter Isaacson",
-    bio: "Acclaimed biographer and journalist, known for definitive biographies of Steve Jobs, Albert Einstein, and Leonardo da Vinci.",
+    name: "Charles Duhigg",
+    bio: "Pulitzer Prize-winning reporter and author who writes about the science of habits, productivity, and decision-making.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Walter_Isaacson_-_2012.jpg/440px-Walter_Isaacson_2012.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Charles_Duhigg.jpg/440px-Charles_Duhigg.jpg",
   },
   {
-    name: "Stephen King",
-    bio: "The undisputed King of Horror, with over 60 novels published. His work spans horror, supernatural fiction, suspense, and fantasy.",
+    name: "Viktor Frankl",
+    bio: "Austrian psychiatrist, Holocaust survivor, and founder of logotherapy. His memoir became one of the most influential books in the psychology of meaning and resilience.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Stephen_King%2C_Cheltenham_Festival%2C_2012.jpg/440px-Stephen_King%2C_Cheltenham_Festival%2C_2012.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Viktor_Frankl2.jpg/440px-Viktor_Frankl2.jpg",
   },
+
+  // ── History ─────────────────────────────────────────────────────────────
   {
-    name: "Sun Quan (Wang Yu)",
-    bio: "Popular Chinese web novel author known for the cultivation and fantasy web serial 'Reverend Insanity', a genre-defining online work.",
-    profileImage: "https://picsum.photos/seed/sunquan/200/200",
-  },
-  {
-    name: "Kugane Maruyama",
-    bio: "Japanese light novel author best known for 'Overlord', a dark fantasy isekai series with a massive global readership.",
-    profileImage: "https://picsum.photos/seed/maruyama/200/200",
-  },
-  {
-    name: "Tara Westover",
-    bio: "American author of the memoir 'Educated', recounting her journey from a survivalist family in rural Idaho to Cambridge University.",
+    name: "Yuval Noah Harari",
+    bio: "Israeli historian and author whose books examine humanity's past, present, and future at an epic scale. His work has sold tens of millions of copies worldwide.",
     profileImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Tara_Westover_%2847559418061%29_%28cropped%29.jpg/440px-Tara_Westover_%2847559418061%29_%28cropped%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Yuval_Noah_Harari_2.jpg/440px-Yuval_Noah_Harari_2.jpg",
+  },
+  {
+    name: "Peter Frankopan",
+    bio: "British historian and professor at Oxford University. His work centres on the medieval and early modern history of the Middle East and Central Asia.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Peter_Frankopan_%2830702601937%29.jpg/440px-Peter_Frankopan_%2830702601937%29.jpg",
+  },
+  {
+    name: "Jared Diamond",
+    bio: "American scientist, author, and professor at UCLA. His interdisciplinary work spans evolutionary biology, anthropology, and ecology.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Jared_Diamond.jpg/440px-Jared_Diamond.jpg",
+  },
+
+  // ── Self-Help ────────────────────────────────────────────────────────────
+  {
+    name: "Mark Manson",
+    bio: "American blogger and author known for his no-nonsense approach to self-help. His writing blends philosophy, psychology, and sharp, irreverent humour.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Mark_Manson_2019.jpg/440px-Mark_Manson_2019.jpg",
+  },
+  {
+    name: "Cal Newport",
+    bio: "Computer science professor at Georgetown and author focused on the intersection of technology and productivity. An advocate for focused, meaningful work.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Cal_Newport_2017.jpg/440px-Cal_Newport_2017.jpg",
+  },
+  {
+    name: "James Clear",
+    bio: "Author and speaker focused on habits, decision-making, and continuous improvement. His Atomic Habits framework has influenced millions of readers worldwide.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/James_Clear%2C_author_of_Atomic_Habits.jpg/440px-James_Clear%2C_author_of_Atomic_Habits.jpg",
+  },
+
+  // ── Science Fiction ──────────────────────────────────────────────────────
+  {
+    name: "Isaac Asimov",
+    bio: "American author and professor of biochemistry, one of the most prolific science fiction writers in history. Best known for the Foundation series and the Three Laws of Robotics.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Isaac.Asimov01.jpg/440px-Isaac.Asimov01.jpg",
+  },
+  {
+    name: "Orson Scott Card",
+    bio: "American novelist and critic best known for Ender's Game, which won both the Hugo and Nebula Awards. He explores themes of empathy, ethics, and leadership.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Orson_Scott_Card_at_BYU_Symposium_20080satelite.jpg/440px-Orson_Scott_Card_at_BYU_Symposium_20080satelite.jpg",
+  },
+  {
+    name: "Frank Herbert",
+    bio: "American science fiction author best known for the Dune series — one of the best-selling and most critically acclaimed science fiction works ever written.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/FrankHerbert_1969.jpg/440px-FrankHerbert_1969.jpg",
+  },
+
+  // ── Mystery & Thriller ───────────────────────────────────────────────────
+  {
+    name: "Gillian Flynn",
+    bio: "American novelist and screenwriter. Her psychological thrillers are celebrated for their dark, complex female characters and shocking narrative twists.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Gillian_Flynn_%28cropped%29.jpg/440px-Gillian_Flynn_%28cropped%29.jpg",
+  },
+  {
+    name: "Stieg Larsson",
+    bio: "Swedish journalist and author who posthumously became one of the world's best-selling crime writers. The Millennium series sold over 100 million copies globally.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Stieg_Larsson.jpg/440px-Stieg_Larsson.jpg",
+  },
+  {
+    name: "Dan Brown",
+    bio: "American author known for his fast-paced thriller novels featuring symbologist Robert Langdon. The Da Vinci Code is one of the best-selling books of all time.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Dan_Brown_bookcover.jpg/440px-Dan_Brown_bookcover.jpg",
+  },
+
+  // ── Romance ─────────────────────────────────────────────────────────────
+  {
+    name: "Jojo Moyes",
+    bio: "British novelist and journalist. Her emotionally resonant love stories have been adapted into major films and translated into over 40 languages.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Jojo_Moyes_at_the_2018_Edinburgh_International_Book_Festival_%2801%29.jpg/440px-Jojo_Moyes_at_the_2018_Edinburgh_International_Book_Festival_%2801%29.jpg",
+  },
+  {
+    name: "Nicholas Sparks",
+    bio: "American romance novelist and screenwriter. His sentimental novels often set in North Carolina have sold over 105 million copies worldwide.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Nicholas_Sparks.jpg/440px-Nicholas_Sparks.jpg",
+  },
+  {
+    name: "Jane Austen",
+    bio: "English novelist known for her wit, social commentary, and vivid portrayals of 18th-century English society. Her works remain among the most widely read in English literature.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/CassandraAusten-JaneAusten%28c.1810%29_hires.jpg/440px-CassandraAusten-JaneAusten%28c.1810%29_hires.jpg",
+  },
+
+  // ── Children & YA ────────────────────────────────────────────────────────
+  {
+    name: "Rick Riordan",
+    bio: "American author best known for the Percy Jackson series. A former middle school teacher, he draws on classical mythology to create adventurous stories for young readers.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Rick_Riordan_2012_Shankbone.JPG/440px-Rick_Riordan_2012_Shankbone.JPG",
+  },
+  {
+    name: "Suzanne Collins",
+    bio: "American television writer and author. The Hunger Games trilogy established her as a leading voice in dystopian YA fiction and sparked worldwide conversation about media and power.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Suzanne_Collins_David_Shankbone_2010.jpg/440px-Suzanne_Collins_David_Shankbone_2010.jpg",
+  },
+  {
+    name: "J.K. Rowling",
+    bio: "British author best known for the Harry Potter series, which has sold over 500 million copies and become the best-selling book series in history.",
+    profileImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/J._K._Rowling_2010.jpg/440px-J._K._Rowling_2010.jpg",
+  },
+
+  // ── Web & Light Novels ───────────────────────────────────────────────────
+  {
+    name: "Cuttlefish That Loves Diving",
+    bio: "Chinese web novel author known for the acclaimed Lord of the Mysteries series, celebrated for its intricate Cthulhu-inspired lore and masterful plotting.",
+    profileImage: "",
+  },
+  {
+    name: "Domagoj Kurmaic",
+    bio: "Croatian author writing under the pen name Chrysalis on Royal Road. Mother of Learning is widely considered one of the finest web serials in the English language.",
+    profileImage: "",
+  },
+  {
+    name: "Guiltythree",
+    bio: "Web serial author on Royal Road. Shadow Slave is a dark fantasy progression story praised for its atmosphere, world-building, and relentless pacing.",
+    profileImage: "",
   },
 ];
 
 // ─── Books ────────────────────────────────────────────────────────────────────
 
 export const books: DummyBook[] = [
-  // ── Fiction / Literary ────────────────────────────────────────────────────
+  // ── Classic Novels ────────────────────────────────────────────────────────
   {
-    title: "The Midnight Library",
+    title: "Crime and Punishment",
     description:
-      "Between life and death there is a library. When Nora Seed finds herself there, she has a chance to undo her regrets and try the lives she never lived.",
-    coverImage: "https://covers.openlibrary.org/b/id/10507727-L.jpg",
-    publishedDate: "2020-09-29T00:00:00.000Z",
+      "A young, impoverished student in St. Petersburg murders a pawnbroker to test his theory that extraordinary people are above conventional morality — then spends the novel unravelling under the weight of his guilt.",
+    coverImage: "@/assets/images/book-covers/crime-and-punishment-cover.jpg",
+    publishedDate: "1866-01-01T00:00:00.000Z",
     language: "English",
-    pageCount: 304,
+    pageCount: 551,
     isWebNovel: false,
-    categoryNames: ["Fiction"],
-    authorNames: ["Matt Haig"],
+    price: 9.99,
+    categoryNames: ["Classic Novels"],
+    authorNames: ["Fyodor Dostoevsky"],
   },
   {
-    title: "It Ends with Us",
+    title: "1984",
     description:
-      "A brave and heartbreaking novel about a young woman caught in a difficult relationship, exploring the complexities of love and abuse.",
-    coverImage: "https://covers.openlibrary.org/b/id/12803049-L.jpg",
-    publishedDate: "2016-08-02T00:00:00.000Z",
+      "In a totalitarian superstate where the Party controls all thought and history, Winston Smith begins a doomed rebellion through love and the desperate act of keeping a diary.",
+    coverImage: "@/assets/images/book-covers/1984-cover.jpg",
+    publishedDate: "1949-06-08T00:00:00.000Z",
     language: "English",
-    pageCount: 376,
+    pageCount: 328,
     isWebNovel: false,
-    categoryNames: ["Fiction", "Romance"],
-    authorNames: ["Colleen Hoover"],
+    price: 9.99,
+    categoryNames: ["Classic Novels"],
+    authorNames: ["George Orwell"],
   },
   {
-    title: "Verity",
+    title: "The Count of Monte Cristo",
     description:
-      "A struggling writer discovers a manuscript that reveals dark secrets about a bestselling author's family — and must decide whether to expose the truth.",
-    coverImage: "https://covers.openlibrary.org/b/id/12887084-L.jpg",
-    publishedDate: "2018-12-07T00:00:00.000Z",
+      "Falsely imprisoned for thirteen years, Edmond Dantès escapes, discovers a vast hidden treasure, and reinvents himself as the mysterious Count of Monte Cristo to exact careful, elaborate revenge on those who betrayed him.",
+    coverImage:
+      "@/assets/images/book-covers/the-count-of-monte-cristo-cover.jpg",
+    publishedDate: "1844-08-28T00:00:00.000Z",
     language: "English",
-    pageCount: 336,
+    pageCount: 1276,
     isWebNovel: false,
-    categoryNames: ["Fiction", "Mystery & Thriller"],
-    authorNames: ["Colleen Hoover"],
-  },
-
-  // ── Non-Fiction / Self-Help ───────────────────────────────────────────────
-  {
-    title: "Atomic Habits",
-    description:
-      "A proven framework for building good habits and breaking bad ones. James Clear reveals how tiny changes can yield remarkable results over time.",
-    coverImage: "https://covers.openlibrary.org/b/id/10309668-L.jpg",
-    publishedDate: "2018-10-16T00:00:00.000Z",
-    language: "English",
-    pageCount: 320,
-    isWebNovel: false,
-    categoryNames: ["Non-Fiction", "Self-Help"],
-    authorNames: ["James Clear"],
-  },
-  {
-    title: "Educated",
-    description:
-      "A memoir about a young woman who grows up in the mountains of Idaho with survivalist parents and goes on to earn a PhD from Cambridge University.",
-    coverImage: "https://covers.openlibrary.org/b/id/8739161-L.jpg",
-    publishedDate: "2018-02-20T00:00:00.000Z",
-    language: "English",
-    pageCount: 352,
-    isWebNovel: false,
-    categoryNames: ["Non-Fiction", "Biography & Memoir"],
-    authorNames: ["Tara Westover"],
-  },
-  {
-    title: "Elon Musk",
-    description:
-      "The definitive biography of Elon Musk by acclaimed author Walter Isaacson, based on years of exclusive access and interviews.",
-    coverImage: "https://covers.openlibrary.org/b/id/13275690-L.jpg",
-    publishedDate: "2023-09-12T00:00:00.000Z",
-    language: "English",
-    pageCount: 688,
-    isWebNovel: false,
-    categoryNames: ["Non-Fiction", "Biography & Memoir"],
-    authorNames: ["Walter Isaacson"],
-  },
-
-  // ── Science Fiction ───────────────────────────────────────────────────────
-  {
-    title: "Dune",
-    description:
-      "Set on the desert planet Arrakis, Dune is the story of Paul Atreides as he navigates political intrigue, religious prophecy, and interstellar war.",
-    coverImage: "https://covers.openlibrary.org/b/id/12719480-L.jpg",
-    publishedDate: "1965-08-01T00:00:00.000Z",
-    language: "English",
-    pageCount: 688,
-    isWebNovel: false,
-    categoryNames: ["Science Fiction", "Fiction"],
-    authorNames: ["Frank Herbert"],
-  },
-  {
-    title: "Dune Messiah",
-    description:
-      "The sequel to Dune follows Paul Atreides as Emperor, facing conspiracies that threaten to unravel everything he built on Arrakis.",
-    coverImage: "https://covers.openlibrary.org/b/id/12675540-L.jpg",
-    publishedDate: "1969-10-15T00:00:00.000Z",
-    language: "English",
-    pageCount: 352,
-    isWebNovel: false,
-    categoryNames: ["Science Fiction", "Fiction"],
-    authorNames: ["Frank Herbert"],
+    price: 11.99,
+    categoryNames: ["Classic Novels"],
+    authorNames: ["Alexandre Dumas"],
   },
 
   // ── Fantasy ───────────────────────────────────────────────────────────────
   {
     title: "The Name of the Wind",
     description:
-      "The first day of the tale of Kvothe — a legendary figure whose story of magic, music, and heartbreak unfolds across the world of Temerant.",
-    coverImage: "https://covers.openlibrary.org/b/id/8775430-L.jpg",
+      "The legend of Kvothe — musician, arcanist, and warrior — told in his own words: how he was driven from his home, survived the streets, earned admission to a prestigious magic university, and began his search for the mythical Chandrian.",
+    coverImage: "@/assets/images/book-covers/the-name-of-the-wind-cover.jpg",
     publishedDate: "2007-03-27T00:00:00.000Z",
     language: "English",
     pageCount: 662,
     isWebNovel: false,
-    categoryNames: ["Fantasy", "Fiction"],
+    price: 13.99,
+    categoryNames: ["Fantasy"],
     authorNames: ["Patrick Rothfuss"],
   },
   {
-    title: "The Way of Kings",
+    title: "The Hobbit",
     description:
-      "Book one of The Stormlight Archive. In a world battered by deadly highstorms, three characters are drawn together by fate, war, and ancient magic.",
-    coverImage: "https://covers.openlibrary.org/b/id/10590358-L.jpg",
-    publishedDate: "2010-08-31T00:00:00.000Z",
+      "Comfortable homebody Bilbo Baggins is swept into an epic quest by a wizard and thirteen dwarves to reclaim a dragon-guarded mountain treasure. A tale of unexpected courage that laid the foundation for Middle-earth.",
+    coverImage: "@/assets/images/book-covers/the-hobbit-cover.jpg",
+    publishedDate: "1937-09-21T00:00:00.000Z",
     language: "English",
-    pageCount: 1007,
+    pageCount: 310,
     isWebNovel: false,
-    categoryNames: ["Fantasy", "Fiction"],
-    authorNames: ["Brandon Sanderson"],
+    price: 12.99,
+    categoryNames: ["Fantasy"],
+    authorNames: ["J.R.R. Tolkien"],
   },
   {
     title: "Mistborn: The Final Empire",
     description:
-      "In a world of ash and darkness ruled by an immortal lord, a crew of thieves plans the most daring heist in history — to overthrow an empire.",
-    coverImage: "https://covers.openlibrary.org/b/id/10001023-L.jpg",
+      "For a thousand years the Lord Ruler has reigned over a world of ash and oppression. A street thief with rare magical powers joins a band of rebels in a seemingly impossible heist — to overthrow a god-like emperor.",
+    coverImage: "@/assets/images/book-covers/mistborn-cover.jpg",
     publishedDate: "2006-07-17T00:00:00.000Z",
     language: "English",
     pageCount: 541,
     isWebNovel: false,
-    categoryNames: ["Fantasy", "Fiction"],
+    price: 13.99,
+    categoryNames: ["Fantasy"],
     authorNames: ["Brandon Sanderson"],
+  },
+
+  // ── Psychology ────────────────────────────────────────────────────────────
+  {
+    title: "Thinking, Fast and Slow",
+    description:
+      "Nobel laureate Daniel Kahneman illuminates the two systems that drive the way we think — the fast, intuitive System 1 and the slow, deliberate System 2 — and how their interplay shapes every decision we make.",
+    coverImage: "@/assets/images/book-covers/thinking-fast-and-slow-cover.jpg",
+    publishedDate: "2011-10-25T00:00:00.000Z",
+    language: "English",
+    pageCount: 499,
+    isWebNovel: false,
+    price: 14.99,
+    categoryNames: ["Psychology"],
+    authorNames: ["Daniel Kahneman"],
+  },
+  {
+    title: "The Power of Habit",
+    description:
+      "Drawing on hundreds of scientific studies, Duhigg reveals why habits exist and how they can be changed — from individual routines to the practices of successful companies and social movements.",
+    coverImage: "@/assets/images/book-covers/the-power-of-habit-cover.jpg",
+    publishedDate: "2012-02-28T00:00:00.000Z",
+    language: "English",
+    pageCount: 371,
+    isWebNovel: false,
+    price: 13.99,
+    categoryNames: ["Psychology"],
+    authorNames: ["Charles Duhigg"],
+  },
+  {
+    title: "Man's Search for Meaning",
+    description:
+      "A Holocaust survivor and psychiatrist describes life inside Nazi concentration camps and presents his theory that our primary drive is not pleasure but the pursuit of meaning — the founding text of logotherapy.",
+    coverImage: "@/assets/images/book-covers/man-search-for-meaning-cover.jpg",
+    publishedDate: "1946-01-01T00:00:00.000Z",
+    language: "English",
+    pageCount: 165,
+    isWebNovel: false,
+    price: 10.99,
+    categoryNames: ["Psychology"],
+    authorNames: ["Viktor Frankl"],
+  },
+
+  // ── History ───────────────────────────────────────────────────────────────
+  {
+    title: "Sapiens",
+    description:
+      "A sweeping history of humankind from the Stone Age to the twenty-first century, asking how Homo sapiens came to dominate the Earth and what it has cost us and every other species.",
+    coverImage: "@/assets/images/book-covers/sapiens-cover.jpg",
+    publishedDate: "2011-01-01T00:00:00.000Z",
+    language: "English",
+    pageCount: 443,
+    isWebNovel: false,
+    price: 15.99,
+    categoryNames: ["History"],
+    authorNames: ["Yuval Noah Harari"],
+  },
+  {
+    title: "The Silk Roads",
+    description:
+      "A radical retelling of world history placing Asia, the Middle East, and the trade routes that connected them at the very centre of civilisation, challenging the Western-centric story we've been taught.",
+    coverImage: "@/assets/images/book-covers/the-silk-roads-cover.jpg",
+    publishedDate: "2015-09-10T00:00:00.000Z",
+    language: "English",
+    pageCount: 636,
+    isWebNovel: false,
+    price: 16.99,
+    categoryNames: ["History"],
+    authorNames: ["Peter Frankopan"],
+  },
+  {
+    title: "Guns, Germs, and Steel",
+    description:
+      "Jared Diamond examines why certain civilisations came to dominate others — not because of racial or intellectual superiority, but due to geography, agriculture, and the accidental advantages of domesticable plants and animals.",
+    coverImage: "@/assets/images/book-covers/guns-germs-and-steel-cover.jpg",
+    publishedDate: "1997-03-01T00:00:00.000Z",
+    language: "English",
+    pageCount: 480,
+    isWebNovel: false,
+    price: 14.99,
+    categoryNames: ["History"],
+    authorNames: ["Jared Diamond"],
+  },
+
+  // ── Self-Help ─────────────────────────────────────────────────────────────
+  {
+    title: "The Subtle Art of Not Giving a F*ck",
+    description:
+      "A counterintuitive guide to living a good life by caring less about more things, embracing limitations, and choosing your struggles wisely rather than chasing endless positivity.",
+    coverImage:
+      "@/assets/images/book-covers/the-subtle-art-of-not-giving-a-fuck-cover.jpg",
+    publishedDate: "2016-09-13T00:00:00.000Z",
+    language: "English",
+    pageCount: 224,
+    isWebNovel: false,
+    price: 13.99,
+    categoryNames: ["Self-Help"],
+    authorNames: ["Mark Manson"],
+  },
+  {
+    title: "Deep Work",
+    description:
+      "Cal Newport argues that the ability to focus without distraction on cognitively demanding tasks is becoming increasingly rare and increasingly valuable — and lays out a rigorous training regimen for cultivating it.",
+    coverImage: "@/assets/images/book-covers/deep-work-cover.jpg",
+    publishedDate: "2016-01-05T00:00:00.000Z",
+    language: "English",
+    pageCount: 296,
+    isWebNovel: false,
+    price: 14.99,
+    categoryNames: ["Self-Help"],
+    authorNames: ["Cal Newport"],
+  },
+  {
+    title: "Atomic Habits",
+    description:
+      "James Clear presents a proven framework for building good habits and breaking bad ones, rooted in the science of marginal gains: tiny 1% improvements compound into remarkable results over time.",
+    coverImage: "@/assets/images/book-covers/atomic-habits-cover.jpg",
+    publishedDate: "2018-10-16T00:00:00.000Z",
+    language: "English",
+    pageCount: 320,
+    isWebNovel: false,
+    price: 15.99,
+    categoryNames: ["Self-Help"],
+    authorNames: ["James Clear"],
+  },
+
+  // ── Science Fiction ───────────────────────────────────────────────────────
+  {
+    title: "Foundation",
+    description:
+      "A mathematician predicts the fall of the Galactic Empire and sets in motion a thousand-year plan to preserve human knowledge and shorten the coming dark age. The first book of Asimov's landmark series.",
+    coverImage: "@/assets/images/book-covers/foundation-cover.jpg",
+    publishedDate: "1951-08-21T00:00:00.000Z",
+    language: "English",
+    pageCount: 244,
+    isWebNovel: false,
+    price: 11.99,
+    categoryNames: ["Science Fiction"],
+    authorNames: ["Isaac Asimov"],
+  },
+  {
+    title: "Ender's Game",
+    description:
+      "Gifted child Andrew 'Ender' Wiggin is recruited to an elite battle school in orbit, trained through increasingly brutal war games, unaware that the fate of the entire human race rests on his shoulders.",
+    coverImage: "@/assets/images/book-covers/ender-game-cover.jpg",
+    publishedDate: "1985-01-15T00:00:00.000Z",
+    language: "English",
+    pageCount: 352,
+    isWebNovel: false,
+    price: 12.99,
+    categoryNames: ["Science Fiction"],
+    authorNames: ["Orson Scott Card"],
+  },
+  {
+    title: "Dune",
+    description:
+      "On the desert planet Arrakis — sole source of the most valuable substance in the universe — young Paul Atreides navigates dynastic politics, religious prophecy, and ecological war in a story of power, betrayal, and destiny.",
+    coverImage: "@/assets/images/book-covers/dune-cover.jpg",
+    publishedDate: "1965-08-01T00:00:00.000Z",
+    language: "English",
+    pageCount: 412,
+    isWebNovel: false,
+    price: 13.99,
+    categoryNames: ["Science Fiction"],
+    authorNames: ["Frank Herbert"],
   },
 
   // ── Mystery & Thriller ────────────────────────────────────────────────────
   {
-    title: "And Then There Were None",
+    title: "Gone Girl",
     description:
-      "Ten strangers are lured to an isolated island and systematically murdered. Agatha Christie's masterpiece of suspense and deduction.",
-    coverImage: "https://covers.openlibrary.org/b/id/12625797-L.jpg",
-    publishedDate: "1939-11-06T00:00:00.000Z",
+      "On their fifth wedding anniversary, Nick Dunne's wife Amy disappears. As the media frenzy grows and clues multiply, shocking revelations force both Nick and the reader to question everything they think they know.",
+    coverImage: "@/assets/images/book-covers/gone-girl-cover.jpg",
+    publishedDate: "2012-06-05T00:00:00.000Z",
     language: "English",
-    pageCount: 264,
+    pageCount: 422,
     isWebNovel: false,
-    categoryNames: ["Mystery & Thriller", "Fiction"],
-    authorNames: ["Agatha Christie"],
+    price: 12.99,
+    categoryNames: ["Mystery & Thriller"],
+    authorNames: ["Gillian Flynn"],
   },
   {
-    title: "Murder on the Orient Express",
+    title: "The Girl with the Dragon Tattoo",
     description:
-      "Hercule Poirot investigates a murder on a snowbound train. One of the most celebrated detective stories ever written.",
-    coverImage: "https://covers.openlibrary.org/b/id/10527667-L.jpg",
-    publishedDate: "1934-01-01T00:00:00.000Z",
+      "Disgraced journalist Mikael Blomkvist and hacker Lisbeth Salander investigate a forty-year-old disappearance within a wealthy Swedish family — uncovering a web of corruption, violence, and dark family secrets.",
+    coverImage:
+      "@/assets/images/book-covers/the-girl-with-the-dragon-tattoo-cover.jpg",
+    publishedDate: "2005-08-01T00:00:00.000Z",
     language: "English",
-    pageCount: 256,
+    pageCount: 672,
     isWebNovel: false,
-    categoryNames: ["Mystery & Thriller", "Fiction"],
-    authorNames: ["Agatha Christie"],
-  },
-
-  // ── Horror ────────────────────────────────────────────────────────────────
-  {
-    title: "The Shining",
-    description:
-      "Jack Torrance takes a job as caretaker of the Overlook Hotel, where supernatural forces awaken his darkest impulses — threatening his family.",
-    coverImage: "https://covers.openlibrary.org/b/id/12813636-L.jpg",
-    publishedDate: "1977-01-28T00:00:00.000Z",
-    language: "English",
-    pageCount: 447,
-    isWebNovel: false,
-    categoryNames: ["Horror", "Fiction"],
-    authorNames: ["Stephen King"],
+    price: 13.99,
+    categoryNames: ["Mystery & Thriller"],
+    authorNames: ["Stieg Larsson"],
   },
   {
-    title: "It",
+    title: "The Da Vinci Code",
     description:
-      "A shapeshifting evil haunts the town of Derry, Maine, preying on children. A group of outcasts must face their deepest fears to defeat it.",
-    coverImage: "https://covers.openlibrary.org/b/id/12803041-L.jpg",
-    publishedDate: "1986-09-15T00:00:00.000Z",
+      "Harvard symbologist Robert Langdon is pulled into a deadly race across Europe to uncover a secret that has been protected by a clandestine society for two thousand years — a secret that could shake the foundations of Christianity.",
+    coverImage: "@/assets/images/book-covers/the-da-vinci-code-cover.jpg",
+    publishedDate: "2003-03-18T00:00:00.000Z",
     language: "English",
-    pageCount: 1138,
+    pageCount: 454,
     isWebNovel: false,
-    categoryNames: ["Horror", "Fiction"],
-    authorNames: ["Stephen King"],
+    price: 12.99,
+    categoryNames: ["Mystery & Thriller"],
+    authorNames: ["Dan Brown"],
   },
 
-  // ── Web Novel ─────────────────────────────────────────────────────────────
+  // ── Romance ───────────────────────────────────────────────────────────────
   {
-    title: "Reverend Insanity",
+    title: "Me Before You",
     description:
-      "A ruthless immortal cultivator is reborn and schemes his way back to power in a world of Gu worms and merciless competition. A dark web novel classic.",
-    coverImage: "https://picsum.photos/seed/reverend/300/450",
-    publishedDate: "2012-03-01T00:00:00.000Z",
-    language: "Chinese",
-    pageCount: 2334,
+      "Small-town girl Louisa Clark becomes the carer of Will Traynor, a wealthy, newly paralysed man. What starts as an unlikely pairing becomes a story about choice, courage, and the transformative power of love.",
+    coverImage: "@/assets/images/book-covers/me-before-you-cover.jpg",
+    publishedDate: "2012-01-05T00:00:00.000Z",
+    language: "English",
+    pageCount: 369,
+    isWebNovel: false,
+    price: 12.99,
+    categoryNames: ["Romance"],
+    authorNames: ["Jojo Moyes"],
+  },
+  {
+    title: "The Notebook",
+    description:
+      "An older man reads to a woman with Alzheimer's from a notebook containing the story of their own passionate, complicated love affair — a love that has spanned decades and refuses to be forgotten.",
+    coverImage: "@/assets/images/book-covers/the-notebook-cover.jpg",
+    publishedDate: "1996-10-01T00:00:00.000Z",
+    language: "English",
+    pageCount: 214,
+    isWebNovel: false,
+    price: 10.99,
+    categoryNames: ["Romance"],
+    authorNames: ["Nicholas Sparks"],
+  },
+  {
+    title: "Pride and Prejudice",
+    description:
+      "The spirited Elizabeth Bennet navigates social expectations, family pressures, and her own prejudices as she falls — reluctantly — for the proud and enigmatic Mr. Darcy.",
+    coverImage: "@/assets/images/book-covers/pride-and-prejudice-cover.jpg",
+    publishedDate: "1813-01-28T00:00:00.000Z",
+    language: "English",
+    pageCount: 432,
+    isWebNovel: false,
+    price: 8.99,
+    categoryNames: ["Romance", "Classic Novels"],
+    authorNames: ["Jane Austen"],
+  },
+
+  // ── Children & YA ─────────────────────────────────────────────────────────
+  {
+    title: "Percy Jackson and the Lightning Thief",
+    description:
+      "Twelve-year-old Percy Jackson discovers he is the son of a Greek god, gets framed for stealing Zeus's lightning bolt, and embarks on a cross-country quest to prevent a war among the Olympians.",
+    coverImage: "@/assets/images/book-covers/percy-jackson-cover.jpg",
+    publishedDate: "2005-06-28T00:00:00.000Z",
+    language: "English",
+    pageCount: 377,
+    isWebNovel: false,
+    price: 10.99,
+    categoryNames: ["Children & YA"],
+    authorNames: ["Rick Riordan"],
+  },
+  {
+    title: "The Hunger Games",
+    description:
+      "In a dystopian future, sixteen-year-old Katniss Everdeen volunteers to take her sister's place in a televised death match between children. Her survival becomes an act of defiance that ignites a revolution.",
+    coverImage: "@/assets/images/book-covers/the-hunger-games-cover.jpg",
+    publishedDate: "2008-09-14T00:00:00.000Z",
+    language: "English",
+    pageCount: 374,
+    isWebNovel: false,
+    price: 11.99,
+    categoryNames: ["Children & YA"],
+    authorNames: ["Suzanne Collins"],
+  },
+  {
+    title: "Harry Potter and the Philosopher's Stone",
+    description:
+      "An orphan boy discovers on his eleventh birthday that he is a wizard and enrolls at Hogwarts School of Witchcraft and Wizardry, where he makes friends, faces danger, and begins to uncover the truth about his parents' fate.",
+    coverImage: "@/assets/images/book-covers/harry-potter-cover.jpg",
+    publishedDate: "1997-06-26T00:00:00.000Z",
+    language: "English",
+    pageCount: 309,
+    isWebNovel: false,
+    price: 12.99,
+    categoryNames: ["Children & YA"],
+    authorNames: ["J.K. Rowling"],
+  },
+
+  // ── Web & Light Novels ────────────────────────────────────────────────────
+  {
+    title: "Lord of the Mysteries",
+    description:
+      "Transported to a Victorian-era world saturated with Cthulhu-esque occultism and secret societies, Zhou Mingrui must ascend a divine pathway fraught with madness, conspiracy, and gods both terrifying and pitiable.",
+    coverImage: "@/assets/images/book-covers/lord-of-the-mysteries-cover.jpg",
+    publishedDate: "2018-03-01T00:00:00.000Z",
+    language: "English",
+    pageCount: 4500,
     isWebNovel: true,
-    categoryNames: ["Web Novel", "Fantasy"],
-    authorNames: ["Sun Quan (Wang Yu)"],
+    price: 4.99,
+    categoryNames: ["Web & Light Novels"],
+    authorNames: ["Cuttlefish That Loves Diving"],
   },
   {
     title: "Mother of Learning",
     description:
-      "A young mage is trapped in a month-long time loop and must use each iteration to grow stronger and uncover the conspiracy threatening the world.",
-    coverImage: "https://picsum.photos/seed/motheroflearning/300/450",
-    publishedDate: "2011-10-20T00:00:00.000Z",
+      "Mage-in-training Zorian Kazinski is trapped in a month-long time loop during a catastrophic demonic invasion, forced to relive the same thirty days over and over — growing in power and unravelling a vast conspiracy with each iteration.",
+    coverImage: "@/assets/images/book-covers/mother-of-learning-cover.jpg",
+    publishedDate: "2011-09-01T00:00:00.000Z",
     language: "English",
-    pageCount: 1200,
+    pageCount: 2300,
     isWebNovel: true,
-    categoryNames: ["Web Novel", "Fantasy", "Science Fiction"],
-    authorNames: ["Brandon Sanderson"], // placeholder — swap with real author
+    price: 4.99,
+    categoryNames: ["Web & Light Novels"],
+    authorNames: ["Domagoj Kurmaic"],
   },
-
-  // ── Light Novel ───────────────────────────────────────────────────────────
   {
-    title: "Overlord, Vol. 1",
+    title: "Shadow Slave",
     description:
-      "A player is trapped inside his favourite MMO as the game shuts down, now reborn as an all-powerful undead overlord in a world that has become reality.",
-    coverImage: "https://picsum.photos/seed/overlord1/300/450",
-    publishedDate: "2012-07-30T00:00:00.000Z",
-    language: "Japanese",
-    pageCount: 280,
-    isWebNovel: false,
-    categoryNames: ["Light Novel", "Fantasy", "Science Fiction"],
-    authorNames: ["Kugane Maruyama"],
+      "In a world where humanity survives by entering nightmare Dungeons, a young man with a rare but cursed ability must climb the ranks of power in a brutal world where every mistake is fatal and every truth is darker than the last.",
+    coverImage: "@/assets/images/book-covers/shadow-slave-cover.jpg",
+    publishedDate: "2021-01-01T00:00:00.000Z",
+    language: "English",
+    pageCount: 3200,
+    isWebNovel: true,
+    price: 4.99,
+    categoryNames: ["Web & Light Novels"],
+    authorNames: ["Guiltythree"],
   },
 ];

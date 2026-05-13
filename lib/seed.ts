@@ -143,6 +143,7 @@ async function seedBooks(categoryMap: IdMap, authorMap: IdMap): Promise<void> {
         coverImage,
         publishedDate: book.publishedDate,
         language: book.language,
+        price: book.price,
         pageCount: book.pageCount,
         isWebNovel: book.isWebNovel,
       },

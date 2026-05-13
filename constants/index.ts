@@ -30,9 +30,9 @@ export const categories = [
     title: "Classic Novels",
     color: "#7A5C8A",
     books: [
-      require("@/assets/images/book-covers/the-count-of-monte-cristo-cover.jpg"),
-      require("@/assets/images/book-covers/1984-cover.jpg"),
       require("@/assets/images/book-covers/crime-and-punishment-cover.jpg"),
+      require("@/assets/images/book-covers/1984-cover.jpg"),
+      require("@/assets/images/book-covers/the-count-of-monte-cristo-cover.jpg"),
     ],
   },
   {
@@ -61,8 +61,8 @@ export const categories = [
     color: "#9B6F3A",
     books: [
       require("@/assets/images/book-covers/sapiens-cover.jpg"),
-      require("@/assets/images/book-covers/guns-germs-and-steel-cover.jpg"),
       require("@/assets/images/book-covers/the-silk-roads-cover.jpg"),
+      require("@/assets/images/book-covers/guns-germs-and-steel-cover.jpg"),
     ],
   },
   {
@@ -70,9 +70,9 @@ export const categories = [
     title: "Self-Help",
     color: "#C45E3E",
     books: [
-      require("@/assets/images/book-covers/atomic-habits-cover.jpg"),
-      require("@/assets/images/book-covers/deep-work-cover.jpg"),
       require("@/assets/images/book-covers/the-subtle-art-of-not-giving-a-fuck-cover.jpg"),
+      require("@/assets/images/book-covers/deep-work-cover.jpg"),
+      require("@/assets/images/book-covers/atomic-habits-cover.jpg"),
     ],
   },
   {
@@ -80,9 +80,9 @@ export const categories = [
     title: "Science Fiction",
     color: "#3A5F7A",
     books: [
-      require("@/assets/images/book-covers/dune-cover.jpg"),
       require("@/assets/images/book-covers/foundation-cover.jpg"),
       require("@/assets/images/book-covers/ender-game-cover.jpg"),
+      require("@/assets/images/book-covers/dune-cover.jpg"),
     ],
   },
   {
@@ -100,9 +100,9 @@ export const categories = [
     title: "Romance",
     color: "#A84F6B",
     books: [
-      require("@/assets/images/book-covers/pride-and-prejudice-cover.jpg"),
       require("@/assets/images/book-covers/me-before-you-cover.jpg"),
       require("@/assets/images/book-covers/the-notebook-cover.jpg"),
+      require("@/assets/images/book-covers/pride-and-prejudice-cover.jpg"),
     ],
   },
   {
@@ -110,9 +110,9 @@ export const categories = [
     title: "Children & YA",
     color: "#4E8C60",
     books: [
-      require("@/assets/images/book-covers/harry-potter-cover.jpg"),
       require("@/assets/images/book-covers/percy-jackson-cover.jpg"),
       require("@/assets/images/book-covers/the-hunger-games-cover.jpg"),
+      require("@/assets/images/book-covers/harry-potter-cover.jpg"),
     ],
   },
   {
@@ -120,9 +120,9 @@ export const categories = [
     title: "Web & Light Novels",
     color: "#5568A0",
     books: [
-      require("@/assets/images/book-covers/shadow-slave-cover.jpg"),
       require("@/assets/images/book-covers/lord-of-the-mysteries-cover.jpg"),
       require("@/assets/images/book-covers/mother-of-learning-cover.jpg"),
+      require("@/assets/images/book-covers/shadow-slave-cover.jpg"),
     ],
   },
 ];
