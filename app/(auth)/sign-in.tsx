@@ -3,7 +3,7 @@ import CustomInput from "@/components/CustomInput";
 import { signIn } from "@/lib/appwrite";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 
 const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -11,49 +11,56 @@ const SignIn = () => {
 
   const submit = async () => {
     const { email, password } = form;
-
     if (!email || !password)
-      return Alert.alert("Error", "Please enter valid email & password");
+      return Alert.alert(
+        "Missing fields",
+        "Please enter your email and password.",
+      );
 
     setIsSubmitting(true);
-
     try {
       await signIn({ email, password });
-
-      Alert.alert("Success", "User signed in successfully");
       router.replace("/");
     } catch (error: any) {
-      Alert.alert("Error", error.message);
+      Alert.alert("Sign in failed", error.message);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <View className="gap-10 bg-white rounded-lg p-5 mt-5">
-      <CustomInput
-        placeholder="Enter you email"
-        value={form.email}
-        onChangeText={(text) => setForm((prev) => ({ ...prev, email: text }))}
-        label="Email"
-        keyboardType="email-address"
-      />
-      <CustomInput
-        placeholder="Enter you password"
-        value={form.password}
-        onChangeText={(text) =>
-          setForm((prev) => ({ ...prev, password: text }))
-        }
-        label="Password"
-        secureTextEntry={true}
-      />
+    <View style={s.wrap}>
+      {/* ── Heading ── */}
+      <View style={s.headingWrap}>
+        <Text style={s.title}>Welcome back</Text>
+        <Text style={s.subtitle}>Sign in to continue reading</Text>
+      </View>
+
+      {/* ── Fields ── */}
+      <View style={s.fields}>
+        <CustomInput
+          label="Email"
+          placeholder="you@example.com"
+          value={form.email}
+          onChangeText={(text) => setForm((p) => ({ ...p, email: text }))}
+          keyboardType="email-address"
+        />
+        <CustomInput
+          label="Password"
+          placeholder="Your password"
+          value={form.password}
+          onChangeText={(text) => setForm((p) => ({ ...p, password: text }))}
+          secureTextEntry
+        />
+      </View>
+
+      {/* ── CTA ── */}
       <CustomButton title="Sign In" isLoading={isSubmitting} onPress={submit} />
 
-      <View className="flex justify-center mt-5 flex-row gap-2">
-        <Text className="base-regular text-gray-100">
-          {"Don't have an account?"}
-        </Text>
-        <Link href={"/sign-up"} className="base-bold text-primary">
+      {/* ── Footer link ── */}
+      <View style={s.footerRow}>
+        <Text style={s.footerText}>{"Don't have an account?"}</Text>
+        <Link href="/sign-up" style={s.footerLink}>
           Sign Up
         </Link>
       </View>
@@ -62,3 +69,46 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+// ─── Styles ───────────────────────────────────────────────────────────────────
+
+const PRIMARY = "#7C6FFF";
+const INK = "#1C1B2E";
+const MUTED = "#8B8BA8";
+
+const s = StyleSheet.create({
+  wrap: { gap: 24 },
+
+  headingWrap: { gap: 4, marginBottom: 4 },
+  title: {
+    fontSize: 26,
+    fontWeight: "900",
+    color: INK,
+    letterSpacing: -0.5,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: MUTED,
+    fontWeight: "500",
+  },
+
+  fields: { gap: 16 },
+
+  footerRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 6,
+    marginTop: 4,
+  },
+  footerText: {
+    fontSize: 14,
+    color: MUTED,
+    fontWeight: "500",
+  },
+  footerLink: {
+    fontSize: 14,
+    fontWeight: "800",
+    color: PRIMARY,
+  },
+});
