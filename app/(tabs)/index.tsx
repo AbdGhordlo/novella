@@ -1,5 +1,5 @@
 import CartButton from "@/components/CartButton";
-import { offers } from "@/constants";
+import { NEW_ARRIVALS, categories } from "@/constants";
 import useAuthStore from "@/store/auth.store";
 import React from "react";
 import {
@@ -16,37 +16,6 @@ import "../global.css";
 
 // ─── Placeholder data ─────────────────────────────────────────────────────────
 
-const NEW_ARRIVALS = [
-  {
-    id: 1,
-    title: "The Midnight Library",
-    author: "Matt Haig",
-    price: "$12.99",
-    color: "#9580ff",
-  },
-  {
-    id: 2,
-    title: "Atomic Habits",
-    author: "James Clear",
-    price: "$14.99",
-    color: "#6ca8f5",
-  },
-  {
-    id: 3,
-    title: "Name of the Wind",
-    author: "Patrick Rothfuss",
-    price: "$11.99",
-    color: "#f59b8a",
-  },
-  {
-    id: 4,
-    title: "Dune",
-    author: "Frank Herbert",
-    price: "$13.99",
-    color: "#62c8b0",
-  },
-];
-
 function getGreeting() {
   const h = new Date().getHours();
   if (h < 12) return "Good morning";
@@ -61,7 +30,7 @@ function HeroBanner() {
     <View style={s.hero}>
       <View style={{ flex: 1 }}>
         <View style={s.heroBadge}>
-          <Text style={s.heroBadgeText}>✦ THIS WEEK'S PICKS</Text>
+          <Text style={s.heroBadgeText}>{"✦ THIS WEEK'S PICKS"}</Text>
         </View>
         <Text style={s.heroHeadline}>{"Your next\ngreat read\nawaits."}</Text>
         <TouchableOpacity style={s.heroCta} activeOpacity={0.85}>
@@ -109,21 +78,19 @@ function BookCard({ book }: { book: (typeof NEW_ARRIVALS)[0] }) {
   return (
     <TouchableOpacity activeOpacity={0.85} style={s.bookCard}>
       <View style={[s.bookCover, { backgroundColor: book.color }]}>
-        <View style={s.coverShine} />
-        <View style={{ padding: 12 }}>
-          <View style={s.coverLineShort} />
-          <View style={s.coverLineLong} />
-        </View>
-        <View style={s.coverBottom}>
-          <Text style={s.coverBottomText} numberOfLines={2}>
-            {book.title}
-          </Text>
-        </View>
+        <Image
+          source={book.cover}
+          style={s.bookCoverImage}
+          resizeMode="cover"
+        />
       </View>
+
       <Text style={s.bookTitle} numberOfLines={1}>
         {book.title}
       </Text>
+
       <Text style={s.bookAuthor}>{book.author}</Text>
+
       <Text style={s.bookPrice}>{book.price}</Text>
     </TouchableOpacity>
   );
@@ -157,7 +124,7 @@ function CategoryCard({
   item,
   isOdd,
 }: {
-  item: (typeof offers)[0];
+  item: (typeof categories)[0];
   isOdd: boolean;
 }) {
   return (
@@ -178,19 +145,31 @@ function CategoryCard({
           <View style={s.booksWrap}>
             {/* Left book — leans left, furthest back */}
             <View style={[s.book, s.bookLeft]}>
-              <Image source={item.image} style={s.bookImg} resizeMode="cover" />
+              <Image
+                source={item.books[0]}
+                style={s.bookImg}
+                resizeMode="cover"
+              />
               <View style={s.bookDarkTint} />
             </View>
 
             {/* Right book — leans right, middle layer */}
             <View style={[s.book, s.bookRight]}>
-              <Image source={item.image} style={s.bookImg} resizeMode="cover" />
+              <Image
+                source={item.books[1]}
+                style={s.bookImg}
+                resizeMode="cover"
+              />
               <View style={s.bookLightTint} />
             </View>
 
             {/* Center book — front, upright */}
             <View style={[s.book, s.bookCenter]}>
-              <Image source={item.image} style={s.bookImg} resizeMode="cover" />
+              <Image
+                source={item.books[2]}
+                style={s.bookImg}
+                resizeMode="cover"
+              />
             </View>
           </View>
 
@@ -212,9 +191,9 @@ function CategoryCard({
 export default function Index() {
   const { user } = useAuthStore();
 
-  const categoryPairs: (typeof offers)[] = [];
-  for (let i = 0; i < offers.length; i += 2) {
-    categoryPairs.push(offers.slice(i, i + 2));
+  const categoryPairs: (typeof categories)[] = [];
+  for (let i = 0; i < categories.length; i += 2) {
+    categoryPairs.push(categories.slice(i, i + 2));
   }
 
   return (
@@ -365,6 +344,10 @@ const s = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 10,
     overflow: "hidden",
+  },
+  bookCoverImage: {
+    width: "100%",
+    height: "100%",
   },
   coverShine: {
     position: "absolute",

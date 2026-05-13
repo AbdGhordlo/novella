@@ -19,204 +19,119 @@ import trash from "@/assets/icons/trash.png";
 import user from "@/assets/icons/user.png";
 import arrowBack from "../assets/icons/arrow-back.png";
 
-import avatar from "@/assets/images/avatar.png";
-import avocado from "@/assets/images/avocado.png";
-import bacon from "@/assets/images/bacon.png";
-import burgerOne from "@/assets/images/burger-one.png";
-import burgerTwo from "@/assets/images/burger-two.png";
-import buritto from "@/assets/images/buritto.png";
-import cheese from "@/assets/images/cheese.png";
-import coleslaw from "@/assets/images/coleslaw.png";
-import cucumber from "@/assets/images/cucumber.png";
+import loginGraphic from "@/assets/images/Books-BG.png";
 import emptyState from "@/assets/images/empty-state.png";
-import fries from "@/assets/images/fries.png";
-import loginGraphic from "@/assets/images/login-graphic.png";
-import logo from "@/assets/images/logo.png";
 import mozarellaSticks from "@/assets/images/mozarella-sticks.png";
-import mushrooms from "@/assets/images/mushrooms.png";
-import onionRings from "@/assets/images/onion-rings.png";
-import onions from "@/assets/images/onions.png";
-import pizzaOne from "@/assets/images/pizza-one.png";
-import salad from "@/assets/images/salad.png";
-import success from "@/assets/images/success.png";
-import tomatoes from "@/assets/images/tomatoes.png";
+import logo from "@/assets/images/Novella-Logo-No-BG.png";
 
-import webNovel from "@/assets/images/Web-Novel.jpg";
-
-export const CATEGORIES = [
-  {
-    id: "1",
-    name: "All",
-  },
-  {
-    id: "2",
-    name: "Burger",
-  },
-  {
-    id: "3",
-    name: "Pizza",
-  },
-  {
-    id: "4",
-    name: "Wrap",
-  },
-  {
-    id: "5",
-    name: "Burrito",
-  },
-];
-
-export const offers = [
+export const categories = [
   {
     id: 1,
     title: "Classic Novels",
-    image: webNovel,
     color: "#7A5C8A",
+    books: [
+      require("@/assets/images/book-covers/the-count-of-monte-cristo-cover.jpg"),
+      require("@/assets/images/book-covers/1984-cover.jpg"),
+      require("@/assets/images/book-covers/crime-and-punishment-cover.jpg"),
+    ],
   },
   {
     id: 2,
     title: "Fantasy",
-    image: webNovel,
     color: "#4A6FA5",
+    books: [
+      require("@/assets/images/book-covers/the-name-of-the-wind-cover.jpg"),
+      require("@/assets/images/book-covers/the-hobbit-cover.jpg"),
+      require("@/assets/images/book-covers/mistborn-cover.jpg"),
+    ],
   },
   {
     id: 3,
     title: "Psychology",
-    image: webNovel,
     color: "#3D8C7A",
+    books: [
+      require("@/assets/images/book-covers/thinking-fast-and-slow-cover.jpg"),
+      require("@/assets/images/book-covers/the-power-of-habit-cover.jpg"),
+      require("@/assets/images/book-covers/man-search-for-meaning-cover.jpg"),
+    ],
   },
   {
     id: 4,
     title: "History",
-    image: webNovel,
     color: "#9B6F3A",
+    books: [
+      require("@/assets/images/book-covers/sapiens-cover.jpg"),
+      require("@/assets/images/book-covers/guns-germs-and-steel-cover.jpg"),
+      require("@/assets/images/book-covers/the-silk-roads-cover.jpg"),
+    ],
   },
   {
     id: 5,
     title: "Self-Help",
-    image: webNovel,
     color: "#C45E3E",
+    books: [
+      require("@/assets/images/book-covers/atomic-habits-cover.jpg"),
+      require("@/assets/images/book-covers/deep-work-cover.jpg"),
+      require("@/assets/images/book-covers/the-subtle-art-of-not-giving-a-fuck-cover.jpg"),
+    ],
   },
   {
     id: 6,
     title: "Science Fiction",
-    image: webNovel,
     color: "#3A5F7A",
+    books: [
+      require("@/assets/images/book-covers/dune-cover.jpg"),
+      require("@/assets/images/book-covers/foundation-cover.jpg"),
+      require("@/assets/images/book-covers/ender-game-cover.jpg"),
+    ],
   },
   {
     id: 7,
     title: "Mystery & Thriller",
-    image: webNovel,
     color: "#3C3C62",
+    books: [
+      require("@/assets/images/book-covers/gone-girl-cover.jpg"),
+      require("@/assets/images/book-covers/the-girl-with-the-dragon-tattoo-cover.jpg"),
+      require("@/assets/images/book-covers/the-da-vinci-code-cover.jpg"),
+    ],
   },
   {
     id: 8,
     title: "Romance",
-    image: webNovel,
     color: "#A84F6B",
+    books: [
+      require("@/assets/images/book-covers/pride-and-prejudice-cover.jpg"),
+      require("@/assets/images/book-covers/me-before-you-cover.jpg"),
+      require("@/assets/images/book-covers/the-notebook-cover.jpg"),
+    ],
   },
   {
     id: 9,
     title: "Children & YA",
-    image: webNovel,
     color: "#4E8C60",
+    books: [
+      require("@/assets/images/book-covers/harry-potter-cover.jpg"),
+      require("@/assets/images/book-covers/percy-jackson-cover.jpg"),
+      require("@/assets/images/book-covers/the-hunger-games-cover.jpg"),
+    ],
   },
   {
     id: 10,
     title: "Web & Light Novels",
-    image: webNovel,
     color: "#5568A0",
-  },
-];
-
-export const sides = [
-  {
-    name: "Fries",
-    image: fries,
-    price: 3.5,
-  },
-  {
-    name: "Onion Rings",
-    image: onionRings,
-    price: 4.0,
-  },
-  {
-    name: "Mozarella Sticks",
-    image: mozarellaSticks,
-    price: 5.0,
-  },
-  {
-    name: "Coleslaw",
-    image: coleslaw,
-    price: 2.5,
-  },
-  {
-    name: "Salad",
-    image: salad,
-    price: 4.5,
-  },
-];
-
-export const toppings = [
-  {
-    name: "Avocado",
-    image: avocado,
-    price: 1.5,
-  },
-  {
-    name: "Bacon",
-    image: bacon,
-    price: 2.0,
-  },
-  {
-    name: "Cheese",
-    image: cheese,
-    price: 1.0,
-  },
-  {
-    name: "Cucumber",
-    image: cucumber,
-    price: 0.5,
-  },
-  {
-    name: "Mushrooms",
-    image: mushrooms,
-    price: 1.2,
-  },
-  {
-    name: "Onions",
-    image: onions,
-    price: 0.5,
-  },
-  {
-    name: "Tomatoes",
-    image: tomatoes,
-    price: 0.7,
+    books: [
+      require("@/assets/images/book-covers/shadow-slave-cover.jpg"),
+      require("@/assets/images/book-covers/lord-of-the-mysteries-cover.jpg"),
+      require("@/assets/images/book-covers/mother-of-learning-cover.jpg"),
+    ],
   },
 ];
 
 export const images = {
-  avatar,
-  avocado,
-  bacon,
-  burgerOne,
-  burgerTwo,
-  buritto,
-  cheese,
-  coleslaw,
-  cucumber,
   emptyState,
-  fries,
   loginGraphic,
   logo,
   mozarellaSticks,
-  mushrooms,
-  onionRings,
-  onions,
-  pizzaOne,
-  salad,
-  success,
-  tomatoes,
   arrowBack,
   arrowDown,
   arrowRight,
@@ -238,3 +153,38 @@ export const images = {
   trash,
   user,
 };
+
+export const NEW_ARRIVALS = [
+  {
+    id: 1,
+    title: "The Midnight Library",
+    author: "Matt Haig",
+    price: "$12.99",
+    color: "#9580ff",
+    cover: require("@/assets/images/book-covers/the-midnight-library-cover.jpg"),
+  },
+  {
+    id: 2,
+    title: "Atomic Habits",
+    author: "James Clear",
+    price: "$14.99",
+    color: "#6ca8f5",
+    cover: require("@/assets/images/book-covers/atomic-habits-cover.jpg"),
+  },
+  {
+    id: 3,
+    title: "Name of the Wind",
+    author: "Patrick Rothfuss",
+    price: "$11.99",
+    color: "#f59b8a",
+    cover: require("@/assets/images/book-covers/the-name-of-the-wind-cover.jpg"),
+  },
+  {
+    id: 4,
+    title: "Dune",
+    author: "Frank Herbert",
+    price: "$13.99",
+    color: "#62c8b0",
+    cover: require("@/assets/images/book-covers/dune-cover.jpg"),
+  },
+];
