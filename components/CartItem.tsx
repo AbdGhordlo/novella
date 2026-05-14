@@ -1,4 +1,5 @@
 import { images } from "@/constants";
+import { resolveCoverImage } from "@/lib/coverMap"; // same map used by BookCard
 import { useCartStore } from "@/store/cart.store";
 import { CartItemType } from "@/type";
 import React from "react";
@@ -7,15 +8,20 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const CartItem = ({ item }: { item: CartItemType }) => {
   const { increaseQty, decreaseQty, removeItem } = useCartStore();
 
+  // Resolve the stored "@/assets/..." path → bundled asset, same as BookCard
+  const imageSource = resolveCoverImage(item.image_url);
+
   return (
     <View style={s.wrap}>
       {/* ── Book cover ── */}
       <View style={s.imgWrap}>
-        <Image
-          source={{ uri: item.image_url }}
-          style={s.img}
-          resizeMode="cover"
-        />
+        {imageSource ? (
+          <Image source={imageSource} style={s.img} resizeMode="cover" />
+        ) : (
+          <View style={s.imgPlaceholder}>
+            <Text style={s.imgPlaceholderText}>📖</Text>
+          </View>
+        )}
       </View>
 
       {/* ── Info ── */}
@@ -89,7 +95,6 @@ const s = StyleSheet.create({
     gap: 14,
   },
 
-  // Cover
   imgWrap: {
     width: 78,
     height: 106,
@@ -99,23 +104,18 @@ const s = StyleSheet.create({
     flexShrink: 0,
   },
   img: { width: "100%", height: "100%" },
+  imgPlaceholder: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imgPlaceholderText: { fontSize: 28 },
 
-  // Info column
   info: { flex: 1, gap: 3 },
-  name: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: INK,
-    lineHeight: 20,
-  },
-  price: {
-    fontSize: 15,
-    fontWeight: "800",
-    color: PRIMARY,
-    marginTop: 1,
-  },
+  name: { fontSize: 14, fontWeight: "700", color: INK, lineHeight: 20 },
+  price: { fontSize: 15, fontWeight: "800", color: PRIMARY, marginTop: 1 },
 
-  // Qty row
   qtyRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -139,7 +139,6 @@ const s = StyleSheet.create({
     textAlign: "center",
   },
 
-  // Delete button
   deleteBtn: {
     width: 38,
     height: 38,

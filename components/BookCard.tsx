@@ -1,3 +1,4 @@
+import { resolveCoverImage } from "@/lib/coverMap"; // adjust path if needed
 import { useCartStore } from "@/store/cart.store";
 import { Book } from "@/type";
 import React from "react";
@@ -13,10 +14,12 @@ import {
 const BookCard = ({ item }: { item: Book }) => {
   const { addItem } = useCartStore();
 
-  // ── Pull fields using the real Appwrite camelCase names ──────────────────
-  const { $id, title, coverImage, bookCategories, isWebNovel } = item;
+  const { $id, title, coverImage, bookCategories, isWebNovel, price } = item;
 
-  // Resolve first category name from the junction relationship
+  // Resolve the DB string → bundled asset (null → renders placeholder)
+  const imageSource = resolveCoverImage(coverImage);
+
+  // First linked category name, or a fallback for web novels
   const categoryName =
     bookCategories?.[0]?.categories?.name ??
     (isWebNovel ? "Web Novel" : undefined);
@@ -25,7 +28,7 @@ const BookCard = ({ item }: { item: Book }) => {
     addItem({
       id: $id,
       name: title,
-      price: 0, // swap for a real price field when you add it to the schema
+      price: price ?? 0,
       image_url: coverImage ?? "",
       customizations: [],
     });
@@ -41,16 +44,19 @@ const BookCard = ({ item }: { item: Book }) => {
       {/* ── Cover ── */}
       <View style={s.coverWrap}>
         <View style={s.coverGlow} />
-        {coverImage ? (
-          <Image
-            source={{ uri: coverImage }}
-            style={s.coverImg}
-            resizeMode="cover"
-          />
+
+        {imageSource ? (
+          <Image source={imageSource} style={s.coverImg} resizeMode="cover" />
         ) : (
-          // Fallback when no cover is stored
           <View style={s.coverPlaceholder}>
             <Text style={s.coverPlaceholderText}>📖</Text>
+          </View>
+        )}
+
+        {/* Price chip */}
+        {price != null && (
+          <View style={s.priceChip}>
+            <Text style={s.priceChipText}>${price.toFixed(2)}</Text>
           </View>
         )}
 
@@ -96,7 +102,6 @@ const WHITE = "#FFFFFF";
 const PRIMARY = "#7C6FFF";
 const LAVENDER = "#C5BAFF";
 const INK = "#1C1B2E";
-const MUTED = "#8B8BA8";
 
 const s = StyleSheet.create({
   card: {
@@ -140,7 +145,24 @@ const s = StyleSheet.create({
   },
   coverPlaceholderText: { fontSize: 36 },
 
-  // Badges
+  // Price chip — top-left so it doesn't clash with the WEB badge (top-right)
+  priceChip: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    backgroundColor: PRIMARY,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  priceChipText: {
+    color: WHITE,
+    fontSize: 10,
+    fontWeight: "800",
+    letterSpacing: 0.2,
+  },
+
+  // Web novel badge
   webNovelBadge: {
     position: "absolute",
     top: 10,
