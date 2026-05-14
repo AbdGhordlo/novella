@@ -8,6 +8,13 @@
   A modern React Native mobile app for discovering and purchasing books and novels.
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Zustand-18181B?style=for-the-badge&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/Appwrite-F02E65?style=for-the-badge&logo=appwrite&logoColor=white" />
+</p>
 ---
 
 # 📖 About Novella
@@ -201,19 +208,3 @@ app/
 # 🎨 Styling
 
 The application uses React Native styling with utility-based styling patterns for building responsive and reusable UI components.
-
----
-
-# 📚 Learn More
-
-- Expo Documentation  
-  https://docs.expo.dev/
-
-- React Native Documentation  
-  https://reactnative.dev/
-
-- Appwrite Documentation  
-  https://appwrite.io/docs
-
-- Zustand Documentation  
-  https://zustand-demo.pmnd.rs/
