@@ -1,6 +1,6 @@
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
-import { createUser, signIn } from "@/lib/appwrite";
+import { createUser } from "@/lib/appwrite";
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
@@ -19,8 +19,9 @@ const SignUp = () => {
 
     setIsSubmitting(true);
     try {
-      await createUser({ email, password, name });
-      await signIn({ email, password });
+      await createUser({ email, password, name }); // already calls signIn internally
+      // ❌ remove: await signIn({ email, password });
+      await fetchAuthenticatedUser(); // ✅ syncs store
       router.replace("/");
     } catch (error: any) {
       Alert.alert("Error", error.message);
