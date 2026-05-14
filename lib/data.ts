@@ -267,17 +267,18 @@ export const authors: DummyAuthor[] = [
   {
     name: "Cuttlefish That Loves Diving",
     bio: "Chinese web novel author known for the acclaimed Lord of the Mysteries series, celebrated for its intricate Cthulhu-inspired lore and masterful plotting.",
-    profileImage: "",
+    profileImage:
+      "https://static.wikia.nocookie.net/lord-of-the-mystery/images/d/d7/Cuttlefish.jpg/revision/latest?cb=20210306210959",
   },
   {
     name: "Domagoj Kurmaic",
     bio: "Croatian author writing under the pen name Chrysalis on Royal Road. Mother of Learning is widely considered one of the finest web serials in the English language.",
-    profileImage: "",
+    profileImage: "https://www.amazon.co.uk/stores/author/B09M8ZV2J2",
   },
   {
     name: "Guiltythree",
     bio: "Web serial author on Royal Road. Shadow Slave is a dark fantasy progression story praised for its atmosphere, world-building, and relentless pacing.",
-    profileImage: "",
+    profileImage: "https://www.tiktok.com/discover/guiltythree",
   },
 ];
 

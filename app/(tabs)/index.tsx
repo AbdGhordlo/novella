@@ -428,8 +428,8 @@ const s = StyleSheet.create({
   // Base book style — all three share this
   book: {
     position: "absolute",
-    width: 60,
-    height: 86,
+    width: 78,
+    height: 111.8,
     borderRadius: 9,
     overflow: "hidden",
   },

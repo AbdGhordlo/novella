@@ -1,10 +1,10 @@
+import BookCard from "@/components/BookCard";
 import CartButton from "@/components/CartButton";
 import Filter from "@/components/Filter";
-import MenuCard from "@/components/MenuCard";
 import SearchBar from "@/components/SearchBar";
 import { getBooks, getCategories } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
-import { AppwriteBook } from "@/type";
+import { Book } from "@/type";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect } from "react";
 import {
@@ -36,13 +36,12 @@ const Search = () => {
   }, [category, query]);
 
   const { data: categories } = useAppwrite({ fn: getCategories });
-
   const activeCategory = categories?.find((c) => c.$id === category);
 
   return (
     <SafeAreaView style={s.screen}>
       <FlatList
-        data={books}
+        data={books as Book[]}
         keyExtractor={(item) => item.$id}
         numColumns={2}
         columnWrapperStyle={s.columnWrapper}
@@ -50,7 +49,7 @@ const Search = () => {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <View style={s.cardWrap}>
-            <MenuCard item={item as unknown as AppwriteBook} />
+            <BookCard item={item} />
           </View>
         )}
         ListHeaderComponent={() => (
@@ -62,11 +61,9 @@ const Search = () => {
               </View>
               <CartButton />
             </View>
-
             <View style={s.searchWrap}>
               <SearchBar />
             </View>
-
             {(query || activeCategory) && (
               <View style={s.contextBanner}>
                 <Text style={s.contextText}>
@@ -76,9 +73,7 @@ const Search = () => {
                 </Text>
               </View>
             )}
-
             <Filter categories={categories!} />
-
             <View style={s.divider} />
           </View>
         )}
@@ -110,6 +105,7 @@ const PRIMARY = "#7C6FFF";
 const INK = "#1C1B2E";
 const MUTED = "#8B8BA8";
 const BORDER = "#EBEBF5";
+const LAVENDER = "#C5BAFF";
 
 const s = StyleSheet.create({
   screen: { flex: 1, backgroundColor: BG },
@@ -137,7 +133,14 @@ const s = StyleSheet.create({
     lineHeight: 35,
     letterSpacing: -0.5,
   },
-  searchWrap: { marginBottom: 14 },
+  searchWrap: {
+    marginBottom: 14,
+    shadowColor: LAVENDER,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 4,
+  },
   contextBanner: {
     backgroundColor: "#EDE9FF",
     borderRadius: 10,

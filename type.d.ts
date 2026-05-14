@@ -22,13 +22,6 @@ export interface User extends Models.Document {
   avatar: string;
 }
 
-export interface CartCustomization {
-  id: string;
-  name: string;
-  price: number;
-  type: string;
-}
-
 export interface CartItemType {
   id: string; // menu item id
   name: string;

@@ -1,5 +1,5 @@
 import { useCartStore } from "@/store/cart.store";
-import { MenuItem } from "@/type";
+import { Book } from "@/type";
 import React from "react";
 import {
   Image,
@@ -10,18 +10,26 @@ import {
   View,
 } from "react-native";
 
-// MenuItem may carry a `categories` relationship array from Appwrite
-type MenuCardItem = MenuItem & {
-  categories?: { $id: string; name: string }[];
-};
-
-const MenuCard = ({ item }: { item: MenuCardItem }) => {
-  const { $id, cover_image, name, price } = item;
-  const imageUrl = `${cover_image}`;
+const BookCard = ({ item }: { item: Book }) => {
   const { addItem } = useCartStore();
 
-  // First category name if available
-  const categoryName = item.categories?.[0]?.name;
+  // ── Pull fields using the real Appwrite camelCase names ──────────────────
+  const { $id, title, coverImage, bookCategories, isWebNovel } = item;
+
+  // Resolve first category name from the junction relationship
+  const categoryName =
+    bookCategories?.[0]?.categories?.name ??
+    (isWebNovel ? "Web Novel" : undefined);
+
+  const handleAddToCart = () => {
+    addItem({
+      id: $id,
+      name: title,
+      price: 0, // swap for a real price field when you add it to the schema
+      image_url: coverImage ?? "",
+      customizations: [],
+    });
+  };
 
   return (
     <View
@@ -33,20 +41,29 @@ const MenuCard = ({ item }: { item: MenuCardItem }) => {
       {/* ── Cover ── */}
       <View style={s.coverWrap}>
         <View style={s.coverGlow} />
-        <Image
-          source={{ uri: imageUrl }}
-          style={s.coverImg}
-          resizeMode="cover"
-        />
-        {/* Price chip — top right */}
-        <View style={s.priceChip}>
-          <Text style={s.priceChipText}>${price}</Text>
-        </View>
+        {coverImage ? (
+          <Image
+            source={{ uri: coverImage }}
+            style={s.coverImg}
+            resizeMode="cover"
+          />
+        ) : (
+          // Fallback when no cover is stored
+          <View style={s.coverPlaceholder}>
+            <Text style={s.coverPlaceholderText}>📖</Text>
+          </View>
+        )}
+
+        {/* Web novel badge */}
+        {isWebNovel && (
+          <View style={s.webNovelBadge}>
+            <Text style={s.webNovelBadgeText}>WEB</Text>
+          </View>
+        )}
       </View>
 
       {/* ── Info ── */}
       <View style={s.info}>
-        {/* Category pill — shown only if data is available */}
         {categoryName && (
           <View style={s.categoryChip}>
             <Text style={s.categoryChipText} numberOfLines={1}>
@@ -56,15 +73,13 @@ const MenuCard = ({ item }: { item: MenuCardItem }) => {
         )}
 
         <Text style={s.title} numberOfLines={2}>
-          {name}
+          {title}
         </Text>
 
         <TouchableOpacity
           style={s.addBtn}
           activeOpacity={0.82}
-          onPress={() =>
-            addItem({ id: $id, name, price, image_url, customizations: [] })
-          }
+          onPress={handleAddToCart}
         >
           <Text style={s.addBtnText}>Add +</Text>
         </TouchableOpacity>
@@ -73,7 +88,7 @@ const MenuCard = ({ item }: { item: MenuCardItem }) => {
   );
 };
 
-export default MenuCard;
+export default BookCard;
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
@@ -81,20 +96,20 @@ const WHITE = "#FFFFFF";
 const PRIMARY = "#7C6FFF";
 const LAVENDER = "#C5BAFF";
 const INK = "#1C1B2E";
+const MUTED = "#8B8BA8";
 
 const s = StyleSheet.create({
   card: {
     backgroundColor: WHITE,
     borderRadius: 20,
     overflow: "hidden",
-    // iOS shadow
     shadowColor: LAVENDER,
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.35,
     shadowRadius: 14,
   },
 
-  // Cover area
+  // Cover
   coverWrap: {
     backgroundColor: "#EDE9FF",
     height: 155,
@@ -115,29 +130,36 @@ const s = StyleSheet.create({
     height: "86%",
     borderRadius: 10,
   },
-  priceChip: {
+  coverPlaceholder: {
+    width: "70%",
+    height: "86%",
+    borderRadius: 10,
+    backgroundColor: "#DDD8FF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  coverPlaceholderText: { fontSize: 36 },
+
+  // Badges
+  webNovelBadge: {
     position: "absolute",
     top: 10,
     right: 10,
-    backgroundColor: PRIMARY,
-    borderRadius: 10,
-    paddingHorizontal: 9,
+    backgroundColor: "#3C3C62",
+    borderRadius: 8,
+    paddingHorizontal: 8,
     paddingVertical: 4,
   },
-  priceChipText: {
+  webNovelBadgeText: {
     color: WHITE,
-    fontSize: 11,
+    fontSize: 9,
     fontWeight: "800",
-    letterSpacing: 0.2,
+    letterSpacing: 0.8,
   },
 
-  // Info block
-  info: {
-    padding: 11,
-    gap: 8,
-  },
+  // Info
+  info: { padding: 11, gap: 8 },
 
-  // Category chip (shown below cover)
   categoryChip: {
     alignSelf: "flex-start",
     backgroundColor: "#EDE9FF",
@@ -160,7 +182,6 @@ const s = StyleSheet.create({
     letterSpacing: -0.1,
   },
 
-  // Add to cart button
   addBtn: {
     backgroundColor: "#EDE9FF",
     borderRadius: 12,
