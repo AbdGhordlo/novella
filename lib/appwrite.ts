@@ -138,6 +138,15 @@ export const getCurrentUser = async () => {
   }
 };
 
+export const logout = async () => {
+  try {
+    await account.deleteSession("current");
+  } catch (error) {
+    console.error("logout:", error);
+    throw error;
+  }
+};
+
 // ─── Categories ───────────────────────────────────────────────────────────────
 
 /** Fetch all categories, alphabetically sorted. */

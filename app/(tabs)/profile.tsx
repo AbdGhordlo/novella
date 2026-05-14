@@ -1,9 +1,8 @@
-import seed from "@/lib/seed";
 import useAuthStore from "@/store/auth.store";
 import { router } from "expo-router";
 import React from "react";
 import {
-  Button,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -21,9 +20,24 @@ const STATS = [
 ];
 
 const RECENT_BOOKS = [
-  { id: 1, title: "Dune", color: "#9580ff" },
-  { id: 2, title: "Atomic Habits", color: "#6ca8f5" },
-  { id: 3, title: "Midnight Library", color: "#f59b8a" },
+  {
+    id: 1,
+    title: "Dune",
+    color: "#9580ff",
+    source: require("@/assets/images/book-covers/dune-cover.jpg"),
+  },
+  {
+    id: 2,
+    title: "Atomic Habits",
+    color: "#6ca8f5",
+    source: require("@/assets/images/book-covers/atomic-habits-cover.jpg"),
+  },
+  {
+    id: 3,
+    title: "Midnight Library",
+    color: "#f59b8a",
+    source: require("@/assets/images/book-covers/the-midnight-library-cover.jpg"),
+  },
 ];
 
 const SETTINGS = [
@@ -47,11 +61,19 @@ function StatCard({ label, value, emoji }: (typeof STATS)[0]) {
   );
 }
 
-function MiniBookCover({ title, color }: { title: string; color: string }) {
+function MiniBookCover({
+  title,
+  color,
+  source,
+}: {
+  title: string;
+  color: string;
+  source: any;
+}) {
   return (
     <View style={[s.miniCover, { backgroundColor: color }]}>
-      <View style={s.miniCoverLine} />
-      <View style={[s.miniCoverLine, { width: 40, opacity: 0.3 }]} />
+      <Image source={source} style={s.miniCoverImage} resizeMode="cover" />
+
       <View style={s.miniCoverBottom}>
         <Text style={s.miniCoverTitle} numberOfLines={2}>
           {title}
@@ -146,7 +168,12 @@ const Profile = () => {
             contentContainerStyle={{ gap: 14, paddingRight: 4 }}
           >
             {RECENT_BOOKS.map((b) => (
-              <MiniBookCover key={b.id} title={b.title} color={b.color} />
+              <MiniBookCover
+                key={b.id}
+                title={b.title}
+                color={b.color}
+                source={b.source}
+              />
             ))}
             {/* Add more placeholder */}
             <TouchableOpacity style={s.addBookBtn}>
@@ -179,12 +206,20 @@ const Profile = () => {
         </TouchableOpacity>
 
         <Text style={s.version}>Novella v1.0.0</Text>
-        <Button
-          title="Seed"
-          onPress={() =>
-            seed().catch((e) => console.log("Failed to seed the database.", e))
-          }
+
+        {/* Seeding done in 3 stages because of rate limits. */}
+        {/* <Button
+          title="Stage 1 — Clear & Seed Categories"
+          onPress={() => seedCategoriesStage().catch(console.error)}
         />
+        <Button
+          title="Stage 2 — Seed Authors"
+          onPress={() => seedAuthorsStage().catch(console.error)}
+        />
+        <Button
+          title="Stage 3 — Seed Books"
+          onPress={() => seedBooksStage().catch(console.error)}
+        /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -337,6 +372,11 @@ const s = StyleSheet.create({
   seeAll: { color: PRIMARY, fontWeight: "600", fontSize: 13 },
 
   // Mini book cover
+  miniCoverImage: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+  },
   miniCover: {
     width: 100,
     height: 140,
