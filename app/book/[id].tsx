@@ -1,4 +1,4 @@
-import { getBook } from "@/lib/appwrite";
+import { appwriteConfig, databases, getBook } from "@/lib/appwrite";
 import { resolveCoverImage } from "@/lib/coverMap";
 import { useCartStore } from "@/store/cart.store";
 import { Book } from "@/type";
@@ -14,6 +14,7 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+import { Query } from "react-native-appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -48,6 +49,7 @@ export default function BookPage() {
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [added, setAdded] = useState(false);
+  const [authorsState, setAuthorsState] = useState<string[]>([]);
 
   useEffect(() => {
     if (!id) return;
@@ -56,10 +58,32 @@ export default function BookPage() {
       try {
         setLoading(true);
 
-        const doc = await getBook(id);
-        console.log("Here!!!!!!!!!");
-        console.log(JSON.stringify(doc, null, 2));
-        setBook(doc as Book);
+        const bookDoc = await getBook(id);
+        console.log("BOOK:");
+        console.log(JSON.stringify(bookDoc, null, 2));
+
+        const bookAuthors = await databases.listDocuments(
+          appwriteConfig.databaseId,
+          appwriteConfig.bookAuthorsCollectionId,
+          [Query.equal("books", id)],
+        );
+
+        const authorNames = await Promise.all(
+          bookAuthors.documents.map(async (link) => {
+            const author = await databases.getDocument(
+              appwriteConfig.databaseId,
+              appwriteConfig.authorsCollectionId,
+              link.authors,
+            );
+
+            return author.name;
+          }),
+        );
+
+        console.log("Authors: ", authorNames);
+
+        setAuthorsState(authorNames);
+        setBook(bookDoc as Book);
       } catch (error) {
         console.error("getBook error:", error);
       } finally {
@@ -71,11 +95,9 @@ export default function BookPage() {
   }, [id]);
 
   // ── Derived fields ───────────────────────────────────────────────────────
+
   const authors =
-    book?.bookAuthors
-      ?.map((ba) => ba.authors?.name)
-      .filter(Boolean)
-      .join(", ") ?? "Unknown Author";
+    authorsState.length > 0 ? authorsState.join(", ") : "Unknown Author";
 
   const categories =
     book?.bookCategories?.map((bc) => bc.categories?.name).filter(Boolean) ??
