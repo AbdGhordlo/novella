@@ -50,6 +50,7 @@ export default function BookPage() {
   const [loading, setLoading] = useState(true);
   const [added, setAdded] = useState(false);
   const [authorsState, setAuthorsState] = useState<string[]>([]);
+  const [categoriesState, setCategoriesState] = useState<string[]>([]);
 
   useEffect(() => {
     if (!id) return;
@@ -59,8 +60,11 @@ export default function BookPage() {
         setLoading(true);
 
         const bookDoc = await getBook(id);
+
         console.log("BOOK:");
         console.log(JSON.stringify(bookDoc, null, 2));
+
+        // ── Authors ───────────────────────────────
 
         const bookAuthors = await databases.listDocuments(
           appwriteConfig.databaseId,
@@ -80,9 +84,32 @@ export default function BookPage() {
           }),
         );
 
-        console.log("Authors: ", authorNames);
+        console.log("Authors:", authorNames);
+
+        // ── Categories ───────────────────────────
+
+        const bookCategories = await databases.listDocuments(
+          appwriteConfig.databaseId,
+          appwriteConfig.bookCategoriesCollectionId,
+          [Query.equal("books", id)],
+        );
+
+        const categoryNames = await Promise.all(
+          bookCategories.documents.map(async (link) => {
+            const category = await databases.getDocument(
+              appwriteConfig.databaseId,
+              appwriteConfig.categoriesCollectionId,
+              link.categories,
+            );
+
+            return category.name;
+          }),
+        );
+
+        console.log("Categories:", categoryNames);
 
         setAuthorsState(authorNames);
+        setCategoriesState(categoryNames);
         setBook(bookDoc as Book);
       } catch (error) {
         console.error("getBook error:", error);
@@ -100,8 +127,7 @@ export default function BookPage() {
     authorsState.length > 0 ? authorsState.join(", ") : "Unknown Author";
 
   const categories =
-    book?.bookCategories?.map((bc) => bc.categories?.name).filter(Boolean) ??
-    [];
+    categoriesState.length > 0 ? categoriesState : ["Uncategorized"];
 
   // Resolve the DB string → bundled asset (null → renders placeholder)
   const imageSource = resolveCoverImage(book?.coverImage);
@@ -234,21 +260,6 @@ export default function BookPage() {
             {book.description ?? "No description available."}
           </Text>
 
-          {/* Divider */}
-          <View style={s.divider} />
-
-          {/* Hardcoded "Why you'll love it" — swap with real data later */}
-          <Text style={s.sectionHeading}>Why you'll love it</Text>
-          {[
-            "🌍  Gripping world-building from the very first page",
-            "✍️  Award-winning writing recognised globally",
-            "📖  Perfect for fans of the genre",
-          ].map((point) => (
-            <Text key={point} style={s.bulletPoint}>
-              {point}
-            </Text>
-          ))}
-
           {/* Spacer for the sticky bar */}
           <View style={{ height: 100 }} />
         </View>
@@ -306,7 +317,7 @@ const s = StyleSheet.create({
   // Back button — floats top-left over the hero
   backBtn: {
     position: "absolute",
-    top: Platform.OS === "android" ? 12 : 10,
+    top: Platform.OS === "android" ? 30 : 26,
     left: 16,
     zIndex: 20,
     width: 42,
