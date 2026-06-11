@@ -92,6 +92,14 @@ The application uses Appwrite as the backend/database solution and Zustand for l
 
 ---
 
+## Book Screen
+
+<p align="center">
+  <img src="assets/images/screens/book.png" width="250" />
+</p>
+
+---
+
 ## Profile Screen
 
 <p align="center">
