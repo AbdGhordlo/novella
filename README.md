@@ -210,9 +210,3 @@ app/
  ├── cart.tsx
  ├── profile.tsx
 ```
-
----
-
-# 🎨 Styling
-
-The application uses React Native styling with utility-based styling patterns for building responsive and reusable UI components.
