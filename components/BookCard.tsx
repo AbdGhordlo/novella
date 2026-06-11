@@ -1,6 +1,7 @@
 import { resolveCoverImage } from "@/lib/coverMap"; // adjust path if needed
 import { useCartStore } from "@/store/cart.store";
 import { Book } from "@/type";
+import { router } from "expo-router";
 import React from "react";
 import {
   Image,
@@ -34,12 +35,18 @@ const BookCard = ({ item }: { item: Book }) => {
     });
   };
 
+  const handlePress = () => {
+    router.push(`/book/${$id}`);
+  };
+
   return (
-    <View
+    <TouchableOpacity
       style={[
         s.card,
         Platform.OS === "android" && { elevation: 6, shadowColor: "#C5BAFF" },
       ]}
+      activeOpacity={0.9}
+      onPress={handlePress}
     >
       {/* ── Cover ── */}
       <View style={s.coverWrap}>
@@ -90,7 +97,7 @@ const BookCard = ({ item }: { item: Book }) => {
           <Text style={s.addBtnText}>Add +</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

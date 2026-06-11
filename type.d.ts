@@ -1,5 +1,17 @@
 import { Models } from "react-native-appwrite";
 
+// export type Book = {
+//   title: string;
+//   description: string;
+//   publishedDate: string;
+//   language: string;
+//   pageCount: number;
+//   isWebNovel: boolean;
+//   price: number;
+//   coverImage: string;
+//   bookCategories: string[];
+// };
+
 export interface MenuItem extends Models.Document {
   name: string;
   price: number;
